@@ -13,13 +13,13 @@ const Home = (props) => {
                         <h1 className='jumbotron-heading font-weight-bold'>Welcome to RentCar !</h1>
                         <h3 className="mb-4">Fast and easy car renting</h3>
                         <div>
-                            <Link to='/cars/all' className='btn btn-primary mr-3 shadow-sm'>Car fleet</Link>
+                            <Link to='/cars/all' className='btn btn-primary me-3 shadow-sm'>Car fleet</Link>
                             {
                                 props.user.isLoggedIn ?
                                                 props.user.role !== 'ADMIN'
-                                                    ? (<Link to='/cars/available' className='btn btn-secondary ml-3 shadow-sm'>Available
+                                                    ? (<Link to='/cars/available' className='btn btn-secondary ms-3 shadow-sm'>Available
                                                         cars</Link>)
-                                                    : (<Link to='/rents/pending' className='btn btn-secondary ml-3 shadow-sm'>Pending
+                                                    : (<Link to='/rents/pending' className='btn btn-secondary ms-3 shadow-sm'>Pending
                                                         rents</Link>)
                                     : ''
                             }

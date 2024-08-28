@@ -41,7 +41,7 @@ const CarInformation = (props) => {
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <small className='mt-5 ml-3'>* For every day after the return date, you will be charged double
+                                    <small className='mt-5 ms-3'>* For every day after the return date, you will be charged double
                                         the daily price.
                                     </small>
                                 </div>
@@ -53,7 +53,7 @@ const CarInformation = (props) => {
                                         <p>{props.data.description}</p>
                                 </pre>
                                 <hr/>
-                                <div className='float-right ml-3'>
+                                <div className='float-right ms-3'>
                                     <h5>Price: ${props.data.pricePerDay}/Day</h5>
                                 </div>
 

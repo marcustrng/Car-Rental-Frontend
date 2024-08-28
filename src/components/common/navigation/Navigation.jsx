@@ -44,7 +44,7 @@ const Navigation = (props) => {
                                         }
                                         <NavLink to="/logout" className="nav-link font-weight-bold">Logout</NavLink>
                                         <span
-                                            className="font-weight-bold text-white mr-auto">Hello, {user.username}!</span>
+                                            className="font-weight-bold text-white me-auto">Hello, {user.username}!</span>
 
                                     </Fragment>
                                 )

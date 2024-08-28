@@ -10,7 +10,7 @@ export default (props) => {
             <div className="card shadow">
                 <div className="card-horizontal">
                     <div className="card-body table-responsive justify-content-center">
-                        <table className='w-75 ml-5'>
+                        <table className='w-75 ms-5'>
                             <tbody>
                                 <tr>
                                     <th>Brand</th>

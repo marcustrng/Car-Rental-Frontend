@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
         <footer className="footer-copyright text-center fixed-bottom bg-info text-white">
-            &copy; RentCar, 2019
+            &copy; UTH - TuTQQ, 2024
         </footer>
     )
 
