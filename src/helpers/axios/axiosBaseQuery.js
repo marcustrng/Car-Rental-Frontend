@@ -3,6 +3,8 @@ import { instance } from './axiosInstance';
 export const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: '' }) =>
         async ({ url, method, data, params, headers }) => {
+            console.log("axiosBaseQuery data", data);
+
             try {
                 const result = await instance({
                     url: baseUrl + url,
@@ -11,6 +13,8 @@ export const axiosBaseQuery =
                     params,
                     headers: headers
                 })
+                console.log("result", result);
+
                 return result
             } catch (axiosError) {
                 const err = axiosError

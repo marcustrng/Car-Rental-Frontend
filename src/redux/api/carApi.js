@@ -19,7 +19,7 @@ export const carsApi = baseApi.injectEndpoints({
                 console.log("Full response:", response);
 
                 return {
-                    cars: response.content,  // List of cars
+                    content: response.content,
                     meta: {
                         totalElements: response.totalElements,
                         totalPages: response.totalPages,

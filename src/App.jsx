@@ -42,8 +42,12 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+import {store} from "./redux/store";
 
 function App() {
+  let state = store.getState();
+  console.log("state", state.invoice);
+
   return (
     <Router>
       <Routes>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getFromLocalStorage } from "../../utils/local-storage";
+import {getFromLocalStorage} from "../../utils/local-storage";
 
 export const instance = axios.create();
 
@@ -17,11 +17,12 @@ instance.interceptors.request.use(function (config) {
 });
 
 instance.interceptors.response.use(function (response) {
-    const responseObj = {
-        data: response?.data?.data,
-        meta: response?.data?.meta
-    }
-    return responseObj;
+    console.log("response", response);
+    return {
+        data: response?.data?.content,
+        meta: response?.data?.meta,
+        content: response?.data?.content,
+    };
 }, function (error) {
     return Promise.reject(error);
 });
