@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'toastr/build/toastr.min.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import './style/cite.css'
-import App from "./components/app/App.jsx";
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <React.Fragment>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.Fragment>,
+  document.getElementById('root')
+);
