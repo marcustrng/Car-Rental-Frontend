@@ -13,8 +13,7 @@ const InfoPage = () => {
                         <div className="content">
                             <h3>Why Choose Us?</h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+                                Choose us for a car rental experience that combines unparalleled convenience with transparent pricing and a diverse fleet of meticulously maintained vehicles. Our commitment to exceptional customer service ensures that every journey is smooth and stress-free, tailored to meet your unique needs whether you're traveling for business or leisure.
                             </p>
                             <div className="text-center">
                                 <Link href="/" className="more-btn">Learn More <i className="bx bx-chevron-right"></i></Link>
@@ -29,15 +28,15 @@ const InfoPage = () => {
                                         <FaHouseUser className="icon"/>
                                         <h4>Appointment</h4>
                                         <small className='text-secondary'>24 Hours Service</small>
-                                        <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                                        <p>We offer 24-hour service to assist you anytime, day or night, ensuring you’re always supported and on the road with peace of mind.</p>
                                     </div>
                                 </div>
                                 <div className="col-xl-4 d-flex align-items-stretch">
                                     <div className="icon-box mt-4 mt-xl-0">
                                         <FaHeadset className="icon"/>
-                                        <h4>Emegency Cases</h4>
-                                        <h6 className='text-secondary'>(+84)981 875 370</h6>
-                                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui facilis perferendis quia maxime. Laborum excepturi pariatur laboriosam nihil, dolor molestias.</p>
+                                        <h4>Emergency Cases</h4>
+                                        <h6 className='text-secondary'>(+84) 981 875 370</h6>
+                                        <p>For emergency cases, our 24-hour service ensures immediate assistance and support whenever you need it, day or night.</p>
                                     </div>
                                 </div>
                                 <div className="col-xl-4 d-flex align-items-stretch">
