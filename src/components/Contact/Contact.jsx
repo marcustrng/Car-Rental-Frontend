@@ -109,7 +109,6 @@ const Contact = () => {
                 </div>
                 <div>
                     <div className="container">
-                        {/* eslint-disable-next-line */}
                         <iframe
                             style={{border: 0, width: "100%", height: "350px"}}
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0862425835767!2d106.71438187590611!3d10.80470655866972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175293dceb22197%3A0x755bb0f39a48d4a6!2sHo%20Chi%20Minh%20City%20University%20of%20Transport!5e0!3m2!1sen!2s!4v1726325473728!5m2!1sen!2s"
