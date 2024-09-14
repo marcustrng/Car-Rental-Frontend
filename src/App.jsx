@@ -77,9 +77,11 @@ function App() {
         <Route path='/service' element={<Service />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
-        <Route path='/track-appointment' element={<TrackAppointment />} />
-        <Route path='/doctors' element={<SearchDoctor />} />
-        <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
+        <Route path='/track-appointment' element={<TrackAppointment/>}/>
+        <Route path='/doctors' element={<SearchDoctor/>}/>
+        x <Route path='/doctors/profile/:id' element={<DoctorProfile/>}/>
+        <Route path='/cars' element={<SearchDoctor/>}/>
+        <Route path='/cars/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />

@@ -1,19 +1,19 @@
-import img2 from '../../../images/features/feature-02.jpg';
-import img3 from '../../../images/features/feature-01.jpg';
-import img4 from '../../../images/features/feature-05.jpg';
-import img5 from '../../../images/features/feature-06.jpg';
-import img from '../../../images/features/feature.png';
+import img1 from '../../../images/services/short-term-rentals.jpg';
+import img2 from '../../../images/services/long-term-rentals.jpg';
+import img3 from '../../../images/services/luxury-rentals.jpg';
+import img4 from '../../../images/services/suvs-vans.jpg';
+import img5 from '../../../images/services/compact-economy-cars.jpg';
 
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Autoplay} from 'swiper/modules';
 
 const AvailableServiceContent = () => {
-  const availabeServiceArray = [
-    {title: 'Short-Term Rentals', img: img},
-    {title: 'Long-Term Rentals', img: img5},
-    {title: 'Luxury Rentals', img: img2},
-    {title: 'SUVs and Vans', img: img3},
-    {title: 'Compact and Economy Cars', img: img4},
+  const availableServiceArray = [
+    {title: 'Short-Term Rentals', img: img1},
+    {title: 'Long-Term Rentals', img: img2},
+    {title: 'Luxury Rentals', img: img3},
+    {title: 'SUVs and Vans', img: img4},
+    {title: 'Compact and Economy Cars', img: img5},
   ]
   return (
       <div className="d-flex justify-content-center align-items-center gap-4">
@@ -27,7 +27,7 @@ const AvailableServiceContent = () => {
             autoplay={{delay: 2000, disableOnInteraction: false}}
         >
           {
-            availabeServiceArray.map((item) => (
+            availableServiceArray.map((item) => (
                 <SwiperSlide key={item.title} className='my-2'>
                   <div className="feature-item text-center">
                     <img src={item.img} className="img-fluid" alt=""/>
