@@ -2,111 +2,61 @@ import React from 'react'
 import './index.css';
 import Header from '../Shared/Header/Header';
 import Footer from '../Shared/Footer/Footer';
-import ImageHeading from '../../images/doc/doctor 5.jpg'
+import ImageHeading from '../../images/doc/achievements-1.png'
 import img from '../../images/logo.png'
 import SubHeader from '../Shared/SubHeader';
-import { useGetAllBlogsQuery } from '../../redux/api/blogApi';
-import { Empty, message } from 'antd';
-import { Link } from 'react-router-dom';
-import { truncate } from '../../utils/truncate';
-import { useGetDoctorsQuery } from '../../redux/api/doctorApi';
+import {Empty} from 'antd';
+import {useGetCarsQuery} from "../../redux/api/carApi";
 
 const About = () => {
-    const { data, isError, isLoading } = useGetAllBlogsQuery({ limit: 4 });
-    const { data: doctorData, isLoading: DoctorIsLoading, isError: doctorIsError } = useGetDoctorsQuery({ limit: 4 });
+    const { data: carData, isLoading: DoctorIsLoading, isError: doctorIsError } = useGetCarsQuery({ limit: 4 });
 
-    const blogData = data?.blogs;
-    const doctors = doctorData?.doctors;
+    const cars = carData?.cars;
 
     let doctorContent = null;
     if (!DoctorIsLoading && doctorIsError) doctorContent = <div>Something Went Wrong !</div>
-    if (!DoctorIsLoading && !doctorIsError && doctors?.length === 0) doctorContent = <div><Empty /></div>
-    if (!DoctorIsLoading && !doctorIsError && doctors?.length > 0) doctorContent =
+    if (!DoctorIsLoading && !doctorIsError && cars?.length === 0) doctorContent = <div><Empty /></div>
+    if (!DoctorIsLoading && !doctorIsError && cars?.length > 0) doctorContent =
         <>
-            {doctors && doctors.map((item, id) => (
+            {cars && cars.map((item, id) => (
                 <div className="col-lg-3 col-md-6 col-sm-6" key={id + item.id}>
                     <div className="card shadow border-0 mb-5 mb-lg-0">
-                        {item.img && <img src={item.img} class="img-fluid w-100" alt="" />}
+                        {item.imageUrl && <img src={item.imageUrl} class="img-fluid w-100" alt="" />}
                         <div className="p-2">
-                            <h4 className="mt-4 mb-0" style={{ color: '#223a66' }}><a>{item?.firstName + ' ' + item?.lastName}</a></h4>
-                            <p>{item?.designation}</p>
+                            <h4 className="mt-4 mb-0" style={{ color: '#223a66' }}><a>{item?.brand + ' ' + item?.model}</a></h4>
+                            <p>{item?.description}</p>
                         </div>
                     </div>
                 </div>
             ))}
         </>
 
-    let content = null;
-    if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && blogData?.length === 0) content = <Empty />
-    if (!isLoading && !isError && blogData?.length > 0) content =
-        <>
-            {
-                blogData && blogData?.map((item, id) => (
-                    <div className="col-lg-3 col-md-6" key={id + item.id}>
-                        <div className="card shadow border-0 mb-5 mb-lg-0">
-                            <img src={item?.img} alt="blog Image" width={300} height={200} className="w-100  rounded-top image-hover" style={{ objectFit: 'contain' }} />
-
-                            <div className='p-2'>
-                                <Link to={`/blog/${item?.id}`}>
-                                    <h6 className="text-start mb-1 text-capitalize" style={{ color: '#223a66' }}>{truncate(item?.title, 40)}</h6>
-                                </Link>
-                                <div className="px-2">
-                                    <p className="form-text text-start text-capitalize">{truncate(item?.description, 80)}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
-        </>
     return (
         <>
             <Header />
-            <SubHeader title="about us" subtitle="Lorem ipsum dolor sit amet consectetur adipisicing." />
+            <SubHeader
+                title="About Us"
+                subtitle="Learn more about our mission, values, and the dedicated team behind our exceptional car rental services."
+            />
             <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
                 <div className="row p-5">
                     <div className="col-lg-4">
                         <div className='section-title text-center'>
-                            <h2 className='text-uppercase'>Our Doctors Acheivement</h2>
-                            <p className='form-text m-0'>Lorem ipsum dolor sit amet.</p>
+                            <h2 className='text-uppercase'>Our Achievements</h2>
+                            <p className='form-text m-0'>Celebrating milestones
+                                and excellence in our journey.</p>
                         </div>
-                        <p className='mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, quod laborum alias. Vitae dolorum, officia sit! Saepe ullam facere at, consequatur incidunt, quae esse, quis ut reprehenderit dignissimos, libero delectus.</p>
-                    </div>
-
-                    <div className="col-lg-8">
-
-                        <img src={ImageHeading} alt="" className="img-fluid rounded shadow" />
-                    </div>
-                </div>
-            </div>
-
-            <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
-                <div className="row">
-                    {content}
-                </div>
-            </div>
-
-            <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
-                <div className="row align-items-center">
-                    <div className="col-lg-4">
-                        <div className='section-title text-center'>
-                            <h2 className='text-uppercase'>Our Doctors Acheivement</h2>
-                            <p className='form-text m-0'>Lorem ipsum dolor sit amet.</p>
-                        </div>
+                        <p className='mt-3'>
+                            Discover how we’ve made an impact in the industry
+                            through dedication and hard work. From reaching key
+                            milestones to delivering outstanding results, our
+                            achievements reflect our commitment to excellence
+                            and customer satisfaction.
+                        </p>
                     </div>
                     <div className="col-lg-8">
-                        <div className="row">
-                            {
-                                Array(6).fill(null).map((_, id) => (
-                                    <div className="col-lg-4 col-md-6 col-sm-6" key={id + 3}>
-                                        <div className="award-img">
-                                            <img src={img} alt="" className="img-fluid" />
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
+                        <img src={ImageHeading} alt=""
+                             className="img-fluid rounded shadow"/>
                     </div>
                 </div>
             </div>
@@ -131,7 +81,7 @@ const About = () => {
                 <div className="row">
                     <div className="col-lg-6 offset-lg-6">
                         <div className='mb-4 section-title text-center'>
-                            <h2 className='text-uppercase'>What Doctor's Say</h2>
+                            <h2 className='text-uppercase'>What Customer's Say</h2>
                             <p className='form-text m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, ipsum!</p>
                         </div>
                     </div>
