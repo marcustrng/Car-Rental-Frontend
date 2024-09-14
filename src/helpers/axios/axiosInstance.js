@@ -19,9 +19,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
     console.log("response", response);
     return {
-        data: response?.data?.content,
-        meta: response?.data?.meta,
-        content: response?.data?.content,
+        data: response?.data
     };
 }, function (error) {
     return Promise.reject(error);

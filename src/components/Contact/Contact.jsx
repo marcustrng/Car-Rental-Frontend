@@ -38,7 +38,7 @@ const Contact = () => {
                                     <FaLocationArrow className='icon' />
                                     <div>
                                         <h4>Location:</h4>
-                                        <p>1212 Dhaka, Kazi Nozrul Avenur, Sylhet, Bangladesh 03214</p>
+                                        <p>02 Võ Oanh, Phường 25, Bình Thạnh, Hồ Chí Minh, Vietnam</p>
                                     </div>
                                 </div>
 
@@ -46,7 +46,7 @@ const Contact = () => {
                                     <FaEnvelope className='icon' />
                                     <div>
                                         <h4>Email:</h4>
-                                        <p>ujjalzaman@gmail.com</p>
+                                        <p>2231123101@ut.edu.vn</p>
                                     </div>
                                 </div>
 
@@ -54,7 +54,7 @@ const Contact = () => {
                                     <FaPhoneAlt className='icon' />
                                     <div>
                                         <h4>Call:</h4>
-                                        <p>+88 01751 040425</p>
+                                        <p>(+84)981 875 370</p>
                                     </div>
                                 </div>
                             </div>
@@ -110,11 +110,14 @@ const Contact = () => {
                 <div>
                     <div className="container">
                         {/* eslint-disable-next-line */}
-                        <iframe style={{ border: 0, width: "100%", height: "350px" }} src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+                        <iframe
+                            style={{border: 0, width: "100%", height: "350px"}}
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0862425835767!2d106.71438187590611!3d10.80470655866972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175293dceb22197%3A0x755bb0f39a48d4a6!2sHo%20Chi%20Minh%20City%20University%20of%20Transport!5e0!3m2!1sen!2s!4v1726325473728!5m2!1sen!2s"
+                            frameBorder="0" allowFullScreen></iframe>
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer/>
         </>
     )
 }
