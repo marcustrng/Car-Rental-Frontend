@@ -75,7 +75,7 @@ const SignIn = ({ handleResponse }) => {
                             <Toast.Body>Use this account to sign in as a doctor <br />
                                 <hr />
                                 <div className='bg-dark text-white p-2 px-3 rounded'>
-                                    email : doctor@gmail.com <br />
+                                    email : admin@gmail.com <br />
                                     password : 123456 <br />
                                 </div>
                                 <hr />
@@ -101,7 +101,7 @@ const SignIn = ({ handleResponse }) => {
                             {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
                         </button>
                         <p className="social-text">Or Sign in with social platforms</p>
-                        <SocialSignUp handleResponse={handleResponse} />
+                        {/*<SocialSignUp handleResponse={handleResponse} />*/}
                     </form>
             }
         </>

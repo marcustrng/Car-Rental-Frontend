@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Footer from '../../Shared/Footer/Footer';
 import SearchSidebar from './SearchSidebar';
 import SearchContent from './SearchContent';
-import { useDebounced } from '../../../utils/hooks/useDebounced';
-import { useGetDoctorsQuery } from '../../../redux/api/doctorApi';
-import { Empty } from 'antd';
-import { Pagination } from 'antd';
+import {useDebounced} from '../../../utils/hooks/useDebounced';
+import {Empty, Pagination} from 'antd';
 import Header from '../../Shared/Header/Header';
 import SubHeader from '../../Shared/SubHeader';
+import {useGetCarsQuery} from "../../../redux/api/carApi";
 
-const SearchDoctor = () => {
+const SearchCar = () => {
     const query = {};
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState("");
@@ -50,19 +49,20 @@ const SearchDoctor = () => {
 
     if (!!debounced) { query.searchTerm = debounced }
 
-    const { data, isLoading, isError } = useGetDoctorsQuery({ ...query })
-    const doctorsData = data?.doctors;
+    const { data, isLoading, isError } = useGetCarsQuery({ ...query })
+    console.log(data)
+    const cars = data?.cars;
     const meta = data?.meta;
 
     //what to render
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>
-    if (!isLoading && !isError && doctorsData.length === 0) content = <div><Empty /></div>
-    if (!isLoading && !isError && doctorsData.length > 0) content =
+    if (!isLoading && !isError && cars.length === 0) content = <div><Empty /></div>
+    if (!isLoading && !isError && cars.length > 0) content =
         <>
             {
-                doctorsData && doctorsData?.map((item, id) => (
+                cars && cars?.map((item, id) => (
                     <SearchContent key={id + item.id} data={item} />
                 ))
             }
@@ -76,7 +76,7 @@ const SearchDoctor = () => {
     return (
         <div>
             <Header />
-            <SubHeader title='Doctors' subtitle='Lorem ipsum dolor sit amet.' />
+            <SubHeader title='Cars' subtitle='Lorem ipsum dolor sit amet.' />
             <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
                 <div className="container-fluid">
                     <div className="row">
@@ -94,7 +94,7 @@ const SearchDoctor = () => {
                                 <Pagination
                                     showSizeChanger
                                     onShowSizeChange={onShowSizeChange}
-                                    total={meta?.total}
+                                    total={meta?.totalElements}
                                     pageSize={size}
                                 />
                             </div>
@@ -107,4 +107,4 @@ const SearchDoctor = () => {
     )
 }
 
-export default SearchDoctor
+export default SearchCar

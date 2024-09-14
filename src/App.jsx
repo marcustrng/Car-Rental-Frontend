@@ -22,7 +22,7 @@ import Specialites from './components/Admin/Specialites/Specialites';
 import AdminReviews from './components/Admin/Reviews/Reviews'
 import PatientFavouriteDoctor from './components/Doctor/PatientFavourite/PatientFavourite';
 import DoctorInvoice from './components/Doctor/Invoice/DoctorInvoice';
-import SearchDoctor from './components/Doctor/SearchDoctor/SearchDoctor';
+import SearchCar from './components/Doctor/SearchCar/SearchCar';
 import Blogs from './components/Doctor/Blogs/Blogs';
 import BlogsEdit from './components/Doctor/Blogs/BlogsEdit';
 import AddBlog from './components/Doctor/Blogs/AddBlog';
@@ -78,15 +78,15 @@ function App() {
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment/>}/>
-        <Route path='/doctors' element={<SearchDoctor/>}/>
+        <Route path='/doctors' element={<SearchCar/>}/>
         x <Route path='/doctors/profile/:id' element={<DoctorProfile/>}/>
-        <Route path='/cars' element={<SearchDoctor/>}/>
+        <Route path='/cars' element={<SearchCar/>}/>
         <Route path='/cars/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
-        <Route path='/booking/:doctorId' element={<DoctorBooking />} />
-        <Route path='/booking/success/:id' element={<BookingSuccess />} />
-        <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
+        {/*<Route path='/booking/:doctorId' element={<DoctorBooking />} />*/}
+        {/*<Route path='/booking/success/:id' element={<BookingSuccess />} />*/}
+        {/*<Route path='/booking/invoice/:id' element={<BookingInvoice />} />*/}
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/appointments' element={<AdminAppointments />} />

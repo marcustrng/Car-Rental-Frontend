@@ -6,7 +6,7 @@ import Header from '../../Shared/Header/Header';
 import SubHeader from '../../Shared/SubHeader';
 import { useGetDoctorQuery } from '../../../redux/api/doctorApi';
 import { Empty, message } from 'antd';
-import SearchContent from '../SearchDoctor/SearchContent';
+import SearchContent from '../SearchCar/SearchContent';
 import { Tabs } from 'antd';
 import OverView from './OverView';
 import Location from './Location';
@@ -15,11 +15,11 @@ import Availibility from './Availibility';
 
 const DoctorProfile = () => {
     const { id } = useParams();
-    const { data, isLoading, isError } = useGetDoctorQuery(id);
-    let content = null;
-    if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.id === undefined) content = <Empty />
-    if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
+    // const { data, isLoading, isError } = useGetDoctorQuery(id);
+    // let content = null;
+    // if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
+    // if (!isLoading && !isError && data?.id === undefined) content = <Empty />
+    // if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
 
     const items = [
         {
@@ -48,12 +48,12 @@ const DoctorProfile = () => {
     return (
         <>
             <Header />
-            <SubHeader title='Doctor Details' subtitle='Lorem ipsum dolor sit amet.' />
+            <SubHeader title='Car Details' subtitle='Lorem ipsum dolor sit amet.' />
             <div className="container" style={{ marginBottom: '4rem', marginTop: '6rem' }}>
-                {content}
-                <div className='p-4 rounded' style={{ marginBottom: '7rem', backgroundColor: '#f3f3f3' }}>
-                    <Tabs defaultActiveKey="1" items={items} />
-                </div>
+                {/*{content}*/}
+                {/*<div className='p-4 rounded' style={{ marginBottom: '7rem', backgroundColor: '#f3f3f3' }}>*/}
+                {/*    <Tabs defaultActiveKey="1" items={items} />*/}
+                {/*</div>*/}
             </div>
             <Footer />
         </>
