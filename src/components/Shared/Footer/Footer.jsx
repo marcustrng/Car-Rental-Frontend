@@ -18,8 +18,9 @@ const Footer = () => {
 									</Link>
 								</div>
 								<div className="footer-about-content">
-									<p className='form-text' style={{maxWidth:200}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-								</div>
+									<p className='form-text' style={{ maxWidth: 200 }}>
+										Discover our commitment to providing top-notch car rental services. With a focus on quality and customer satisfaction, we ensure a seamless experience for every journey. Explore our diverse fleet and let us drive your adventures.
+									</p>								</div>
 							</div>
 						</div>
 
