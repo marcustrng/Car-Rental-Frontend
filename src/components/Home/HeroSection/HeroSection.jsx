@@ -7,13 +7,13 @@ const HeroSection = () => {
         <section id="hero" className="d-flex align-items-center">
             <div className="container">
                 <div>
-                    <small>TOTAL HEALTH CARE SOLUTION</small>
-                    <h1>Your Most Trusted <br />Health Partner</h1>
-                    <small>A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</small>
+                    <small>Your Perfect Ride Awaits!</small>
+                    <h1>Drive Your Dreams</h1>
+                    <small>Seamless, Reliable, and Tailored Car Rentals for Every Journey.</small>
                 </div>
                 <div className="d-flex justify-content-start gap-2">
-                    <Link to={'/doctors'} className="btn-get-started scrollto">Get Started</Link>
-                    <Link to={'/track-appointment'} className="btn-get-started scrollto">Track Appointment</Link>
+                    <Link to={'/cars'} className="btn-get-started scrollto">Get Started</Link>
+                    <Link to={'/track-deal'} className="btn-get-started scrollto">Track Great Deal</Link>
                 </div>
             </div>
         </section>
