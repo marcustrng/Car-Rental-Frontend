@@ -7,14 +7,15 @@ export const authApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         userLogin: build.mutation({
             query: (loginData) => ({
-                url: `${AUTH_URL}/login`,
+                url: `/login`,
                 method: 'POST',
                 data: loginData,
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
+                    console.log("queryFulfilled", queryFulfilled);
                     const result = (await queryFulfilled).data;
-                    setUserInfo({ accessToken: result.accessToken });
+                    setUserInfo({ accessToken: result.Authorization });
                 } catch (error) {
                 }
             },

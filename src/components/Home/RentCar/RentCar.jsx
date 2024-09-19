@@ -1,13 +1,7 @@
 import React, {useEffect} from 'react';
 import './RentCar.css';
 import {Link} from 'react-router-dom';
-import {
-	FaCheckCircle,
-	FaClock,
-	FaDollarSign,
-	FaLocationArrow,
-	FaRegHeart
-} from "react-icons/fa";
+import {FaCheckCircle, FaClock, FaDollarSign, FaLocationArrow, FaRegHeart} from "react-icons/fa";
 import {useAddFavouriteMutation} from '../../../redux/api/favouriteApi';
 import StarRatings from 'react-star-ratings';
 import {message} from 'antd';
@@ -18,11 +12,12 @@ import {Autoplay, Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
-import {useGetCarsQuery} from "../../../redux/api/carApi";
+import {useGetAvailableCarsQuery} from "../../../redux/api/carApi";
 
 const RentCar = () => {
-	const { data, isError, isLoading } = useGetCarsQuery({ limit: 10 });
+	const { data, isError, isLoading } = useGetAvailableCarsQuery({ limit: 10 });
 	const cars = data?.cars;
+	console.log("cars", cars);
 	const [addFavourite, { isSuccess, isLoading: FIsLoading, isError: fIsError, error }] = useAddFavouriteMutation();
 
 	const handleAddFavourite = (id) => {

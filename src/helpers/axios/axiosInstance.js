@@ -7,6 +7,7 @@ instance.defaults.headers.post['Accept'] = 'application/json';
 instance.defaults.timeout = 60000;
 
 instance.interceptors.request.use(function (config) {
+    console.log("config", config);
     const accessToken = getFromLocalStorage('accessToken');
     if (accessToken) {
         config.headers.Authorization = accessToken;

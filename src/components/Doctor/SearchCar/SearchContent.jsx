@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import {Tag} from 'antd';
 import './index.css';
-import {FaComment, FaRegThumbsUp} from "react-icons/fa";
+import {FaComment, FaDollarSign, FaRegThumbsUp} from "react-icons/fa";
 
-const SearchContent = ({ data }) => {
+const SearchContent = ({data, searchDateFrom, searchDateTo}) => {
     const services = data?.services?.split(',')
     return (
         <div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
@@ -18,8 +18,6 @@ const SearchContent = ({ data }) => {
                         <h5 className='mb-0'><Link to={`/doctors/profile/${data?.id}`}>Dr. {data?.brand + ' ' + data?.model}</Link></h5>
                         <p className='m-0 form-text'>{data?.description}</p>
                         <br/>
-                        {/*<p className="doc-department m-0"><img src={showImg} className="img-fluid" alt="Speciality" />Urology</p>*/}
-
                         <div className='d-flex align-items-center'>
                             <div>
                                 <StarRatings
@@ -34,23 +32,9 @@ const SearchContent = ({ data }) => {
                             <div>(4)</div>
                         </div>
 
-                        {/*<div className="clinic-details">*/}
-                            {/*<p className="form-text text-secondary"><FaLocationArrow /> {data?.address}, {data?.country}</p>*/}
-                            {/*<ul className="clinic-gallery mt-3">*/}
-                            {/*    <li>*/}
-                            {/*        <img src={showImg} alt="Feature" style={{ maxWidth: "30px" }} />*/}
-                            {/*    </li>*/}
-                            {/*    <li>*/}
-                            {/*        <img src={showImg} alt="Feature" style={{ maxWidth: "30px" }} />*/}
-                            {/*    </li>*/}
-                            {/*    <li>*/}
-                            {/*        <img src={showImg} alt="Feature" style={{ maxWidth: "30px" }} />*/}
-                            {/*    </li>*/}
-                            {/*    <li>*/}
-                            {/*        <img src={showImg} alt="Feature" style={{ maxWidth: "30px" }} />*/}
-                            {/*    </li>*/}
-                            {/*</ul>*/}
-                        {/*</div>*/}
+                        <div className="clinic-details">
+                            <p className="form-text text-secondary"><FaDollarSign /> {data?.pricePerDay} a day</p>
+                        </div>
                         {
                             services?.map((item, id) => (
                                 <Tag key={id + 51}>{item}</Tag>
@@ -70,7 +54,8 @@ const SearchContent = ({ data }) => {
                     </div>
                     <div className="clinic-booking">
                         <Link to={`/cars/profile/${data?.id}`} className="view-pro-btn">View Profile</Link>
-                        <Link to={`/booking/${data?.id}`} className="apt-btn">Book Appointment</Link>
+                        <Link to={`/booking/${data?.id}/${searchDateFrom}/${searchDateTo}`} className="apt-btn">Book
+                            Appointment</Link>
                     </div>
                 </div>
             </div>

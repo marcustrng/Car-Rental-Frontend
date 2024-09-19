@@ -10,3 +10,8 @@
 .doc-info a{
     color: #1977cc !important;
 }
+
+/* styles.css */
+.input-error {
+    border: 1px solid red;
+}

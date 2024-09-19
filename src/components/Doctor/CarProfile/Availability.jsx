@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Availibility = () => {
+const Availability = () => {
     return (
         <div className="col-md-6 offset-md-3">
 
@@ -64,4 +64,4 @@ const Availibility = () => {
     )
 }
 
-export default Availibility
+export default Availability

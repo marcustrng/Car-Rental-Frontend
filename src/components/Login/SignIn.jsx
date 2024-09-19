@@ -87,7 +87,7 @@ const SignIn = ({ handleResponse }) => {
                         <h2 className="title">Sign in</h2>
                         <div className="input-field">
                             <span className="fIcon"><FaEnvelope /></span>
-                            <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
+                            <input {...register("username", { required: true })} placeholder="Enter Your Email" type="text" />
                         </div>
                         {errors.email && <span className="text-danger">This field is required</span>}
                         <div className="input-field">

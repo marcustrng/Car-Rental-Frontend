@@ -2,14 +2,14 @@ import { instance } from './axiosInstance';
 
 export const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: '' }) =>
-        async ({ url, method, data, params, headers }) => {
-            console.log("axiosBaseQuery data", data);
+        async ({ url, method, body, params, headers }) => {
+            console.log("axiosBaseQuery data", body);
 
             try {
                 const result = await instance({
                     url: baseUrl + url,
                     method,
-                    data,
+                    data: body,
                     params,
                     headers: headers
                 })

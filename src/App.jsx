@@ -2,10 +2,10 @@ import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from './components/Home/Home/Home';
 import SignInForm from './components/Login/SignInForm';
-import DoctorBooking from './components/Booking/DoctorBooking/DoctorBooking';
+import CarBooking from './components/Booking/CarBooking/CarBooking';
 import BookingSuccess from './components/Booking/BookingSuccess';
 import BookingInvoice from './components/Booking/BookingInvoice/BookingInvoice';
-import DoctorProfile from './components/Doctor/DoctorProfile/DoctorProfile';
+import CarProfile from './components/Doctor/CarProfile/CarProfile';
 import Appointments from './components/Doctor/Appointments/Appointments';
 import MyPatients from './components/Doctor/MyPatients/MyPatients';
 import Reviews from './components/Doctor/Reviews/Reviews';
@@ -79,12 +79,12 @@ function App() {
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment/>}/>
         <Route path='/doctors' element={<SearchCar/>}/>
-        x <Route path='/doctors/profile/:id' element={<DoctorProfile/>}/>
+        <Route path='/doctors/profile/:id' element={<CarProfile/>}/>
         <Route path='/cars' element={<SearchCar/>}/>
-        <Route path='/cars/profile/:id' element={<DoctorProfile />} />
+        <Route path='/cars/profile/:id' element={<CarProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
-        {/*<Route path='/booking/:doctorId' element={<DoctorBooking />} />*/}
+        <Route path='/booking/:carId/:startDate/:endDate' element={<CarBooking />} />
         {/*<Route path='/booking/success/:id' element={<BookingSuccess />} />*/}
         {/*<Route path='/booking/invoice/:id' element={<BookingInvoice />} />*/}
         {/* Admin Dashboard  */}

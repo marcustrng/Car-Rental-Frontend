@@ -2,54 +2,45 @@ import React, {useState} from 'react';
 import Footer from '../../Shared/Footer/Footer';
 import SearchSidebar from './SearchSidebar';
 import SearchContent from './SearchContent';
-import {useDebounced} from '../../../utils/hooks/useDebounced';
 import {Empty, Pagination} from 'antd';
 import Header from '../../Shared/Header/Header';
 import SubHeader from '../../Shared/SubHeader';
-import {useGetCarsQuery} from "../../../redux/api/carApi";
+import {useGetAvailableCarsQuery} from "../../../redux/api/carApi";
+import moment from "moment/moment";
 
 const SearchCar = () => {
     const query = {};
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
-    const [sortBy, setSortBy] = useState("");
-    const [sortOrder, setSortOrder] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const [sortByGender, setSorByGender] = useState("");
-    const [specialist, setSpecialist] = useState("");
-    const [priceRange, setPriceRange] = useState({});
+    const [searchDateFrom, setSearchDateFrom] = useState(moment().format('YYYY-MM-DD'));
+    const [searchDateTo, setSearchDateTo] = useState('');
 
-    query["limit"] = size;
+    query["size"] = size;
     query["page"] = page;
-    query["sortBy"] = sortBy;
-    query["sortOrder"] = sortOrder;
-
-    sortByGender !== '' && (query["gender"] = sortByGender);
-    specialist !== '' && (query["specialist"] = specialist);
-
-    const priceDebounced = useDebounced({ searchQuery: priceRange, delay: 600 });
-    const debounced = useDebounced({ searchQuery: searchTerm, delay: 600 })
-
-    if (Object.keys(priceDebounced).length !== 0 && !!priceDebounced) {
-        const { min, max } = priceDebounced
-        query["min"] = min;
-        query["max"] = max;
-    }
 
     const resetFilter = () =>{
         setPage(1);
         setSize(10);
-        setSortOrder("");
         setSearchTerm("");
-        setSortOrder("");
-        setSorByGender("");
-        setSpecialist("");
-        setPriceRange({});
+        setSearchDateFrom(moment().format('YYYY-MM-DD'));
+        setSearchDateTo('');
     }
 
-    if (!!debounced) { query.searchTerm = debounced }
+    if (!!searchTerm) {
+        query.query = searchTerm
+    }
+    if (!!searchDateFrom) {
+        query.startDate = searchDateFrom
+    }
+    if (!!searchDateTo) {
+        query.endDate = searchDateTo
+    } else {
+        setSearchDateTo(moment(searchDateFrom).add(1, 'month').format('YYYY-MM-DD'));
+        query.endDate = searchDateTo;
+    }
 
-    const { data, isLoading, isError } = useGetCarsQuery({ ...query })
+    const { data, isLoading, isError } = useGetAvailableCarsQuery({ ...query })
     console.log(data)
     const cars = data?.cars;
     const meta = data?.meta;
@@ -63,7 +54,9 @@ const SearchCar = () => {
         <>
             {
                 cars && cars?.map((item, id) => (
-                    <SearchContent key={id + item.id} data={item} />
+                    <SearchContent key={id + item.id} data={item}
+                                   searchDateFrom={searchDateFrom}
+                                   searchDateTo={searchDateTo}/>
                 ))
             }
         </>
@@ -82,9 +75,8 @@ const SearchCar = () => {
                     <div className="row">
                         <SearchSidebar
                             setSearchTerm={setSearchTerm}
-                            setSorByGender={setSorByGender}
-                            setSpecialist={setSpecialist}
-                            setPriceRange={setPriceRange}
+                            setSearchDateFrom={setSearchDateFrom}
+                            setSearchDateTo={setSearchDateTo}
                             resetFilter={resetFilter}
                             query={query}
                         />

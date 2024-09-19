@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Footer from '../../Shared/Footer/Footer'
 import img from '../../../images/doc/doctor 3.jpg'
 import './index.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Empty, Button, message, Steps } from 'antd';
-import { useGetDoctorQuery } from '../../../redux/api/doctorApi';
-import { FaArchway } from "react-icons/fa";
-import { useGetAppointmentTimeQuery } from '../../../redux/api/timeSlotApi';
+import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Button, Card, Col, Empty, message, Row, Steps} from 'antd';
+import {FaArchway} from "react-icons/fa";
 import moment from 'moment';
-import SelectDateAndTime from '../SelectDateAndTime';
+import VerifyReverse from '../VerifyReverse';
 import PersonalInformation from '../PersonalInformation';
 import CheckoutPage from '../BookingCheckout/CheckoutPage';
-import { useCreateAppointmentMutation } from '../../../redux/api/appointmentApi';
-import { useDispatch } from 'react-redux';
-import { addInvoice } from '../../../redux/feature/invoiceSlice';
+import {useCreateAppointmentMutation} from '../../../redux/api/appointmentApi';
+import {useDispatch} from 'react-redux';
+import {addInvoice} from '../../../redux/feature/invoiceSlice';
 import Header from '../../Shared/Header/Header';
 import useAuthCheck from '../../../redux/hooks/useAuthCheck';
+import {useGetCarByIdQuery} from "../../../redux/api/carApi";
+import {useGetAppointmentTimeQuery} from "../../../redux/api/timeSlotApi";
 
-const DoctorBooking = () => {
+const CarBooking = () => {
     const dispatch = useDispatch();
     let initialValue = {
         paymentMethod: 'paypal',
@@ -35,18 +35,27 @@ const DoctorBooking = () => {
         cardExpiredYear: '',
         cvv: '',
     }
-    const {data:loggedInUser, role} = useAuthCheck();
+    const {data: loggedInUser, role} = useAuthCheck();
     const [current, setCurrent] = useState(0);
     const [selectedDate, setSelectedDate] = useState('');
-    const [selectDay, setSelecDay] = useState('');
+    const [selectDay, setSelectDay] = useState('');
     const [selectTime, setSelectTime] = useState('');
     const [isCheck, setIsChecked] = useState(false);
     const [patientId, setPatientId] = useState('');
-    const [createAppointment, { data: appointmentData, isSuccess: createIsSuccess, isError: createIsError, error: createError, isLoading: createIsLoading }] = useCreateAppointmentMutation();
-    const { doctorId } = useParams();
+    const [createAppointment, {
+        data: appointmentData,
+        isSuccess: createIsSuccess,
+        isError: createIsError,
+        error: createError,
+        isLoading: createIsLoading
+    }] = useCreateAppointmentMutation();
+    const {carId, startDate, endDate} = useParams();
+    console.log("carId", carId);
+    console.log("startDate", startDate);
+    console.log("endDate", endDate);
     const navigation = useNavigate();
-    const { data, isLoading, isError, error } = useGetDoctorQuery(doctorId);
-    const { data: time, refetch, isLoading: dIsLoading, isError: dIsError, error: dError } = useGetAppointmentTimeQuery({ day: selectDay, id: doctorId });
+    const { data, isLoading, isError, error } = useGetCarByIdQuery(carId);
+    const { data: time, refetch, isLoading: dIsLoading, isError: dIsError, error: dError } = useGetAppointmentTimeQuery({ day: selectDay, id: carId });
 
     const [selectValue, setSelectValue] = useState(initialValue);
     const [IsdDisable, setIsDisable] = useState(true);
@@ -65,57 +74,62 @@ const DoctorBooking = () => {
 
     const handleDateChange = (_date, dateString) => {
         setSelectedDate(dateString)
-        setSelecDay(moment(dateString).format('dddd').toLowerCase());
+        setSelectDay(moment(dateString).format('dddd').toLowerCase());
         refetch();
     }
-    const disabledDateTime = (current) => current && (current < moment().add(1, 'day').startOf('day') || current > moment().add(8, 'days').startOf("day"))
-    const handleSelectTime = (date) => { setSelectTime(date) }
 
     const next = () => { setCurrent(current + 1) };
     const prev = () => { setCurrent(current - 1) };
 
     let dContent = null;
-    if (dIsLoading) dContent = <div>Loading ...</div>
-    if (!dIsLoading && dIsError) dContent = <div>Something went Wrong!</div>
-    if (!dIsLoading && !dIsError && time.length === 0) dContent = <Empty children="Doctor Is not Available" />
-    if (!dIsLoading && !dIsError && time.length > 0) dContent =
+    if (isLoading) dContent = <div>Loading ...</div>
+    if (!isLoading && isError) dContent = <div>Something went Wrong!</div>
+    if (!isLoading && !isError && data.length === 0) dContent = <Empty children="Car Is not Available" />
+    if (!isLoading && !isError && data.length > 0) dContent =
         <>
-            {
-                time && time.map((item, id) => (
-                    <div className="col-md-4" key={id + 155}>
-                        <Button type={item?.slot?.time === selectTime ? "primary" : "default"} shape="round" size='large' className='mb-3' onClick={() => handleSelectTime(item?.slot?.time)}> {item?.slot?.time} </Button>
-                    </div>
-                ))
-            }
+            <h2 style={{color: '#05335c'}}>Verify Your Information</h2>
+            <div style={{marginBottom: '1.5rem'}}>
+                <h5>Selected Date Range:</h5>
+                <p>{`${moment().format('YYYY-MM-DD')} - ${moment().format('YYYY-MM-DD')}`}</p>
+            </div>
         </>
 
     //What to render
     let content = null;
     if (!isLoading && isError) content = <div>Something Went Wrong!</div>
-    if (!isLoading && !isError && data?.id === undefined) content = <Empty />
+    if (!isLoading && !isError && data?.id === undefined) content = <Empty/>
     if (!isLoading && !isError && data?.id) content =
         <>
-            <div className="booking-doc-img my-3 mb-3 rounded">
-                <Link to={`/doctors/${data?.id}`}>
-                    <img src={img} alt="" />
-                </Link>
-                <div className='text-start'>
-                    <Link to={`/doctors/${data?.id}`} style={{ textDecoration: 'none' }}>Dr. {data?.firstName + ' ' + data?.lastName}</Link>
-                    <p className="form-text mb-0"><FaArchway /> {data?.specialization + ',' + data?.experienceHospitalName}</p>
-                </div>
-            </div>
+            <h2 style={{color: '#05335c'}}>Your Choose</h2>
+            <Card style={{borderRadius: '8px'}}>
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <img
+                            src={data.imageUrl}
+                            alt={`${data.brand} ${data.model}`}
+                            style={{width: '100%', borderRadius: '8px'}}
+                        />
+                    </Col>
+                    <Col span={16}>
+                        <h4>{`${data.brand} ${data.model}`}</h4>
+                        <p><strong>Year:</strong> {data.year}</p>
+                        <p><strong>Description:</strong> {data.description}</p>
+                        <p><strong>Seats:</strong> {data.seats}</p>
+                        <p><strong>Trunk Capacity:</strong> {data.trunkCapacity} L</p>
+                        <p><strong>Price per Day:</strong> ${data.pricePerDay.toFixed(2)}</p>
+                        <p><strong>Available:</strong> {data.rented ? 'No' : 'Yes'}</p>
+                    </Col>
+                </Row>
+            </Card>
         </>
 
     const steps = [
         {
-            title: 'Select Appointment Date & Time',
-            content: <SelectDateAndTime
+            title: 'Verify Reverse',
+            content: <VerifyReverse
                 content={content}
-                handleDateChange={handleDateChange}
-                disabledDateTime={disabledDateTime}
-                selectedDate={selectedDate}
                 dContent={dContent}
-                selectTime={selectTime}
+                handleDateChange={handleDateChange}
             />
         },
         {
@@ -150,7 +164,7 @@ const DoctorBooking = () => {
             phone: selectValue.phone,
             scheduleDate: selectedDate,
             scheduleTime: selectTime,
-            doctorId: doctorId,
+            doctorId: carId,
             patientId: role !== '' && role === 'patient' ? patientId : undefined,
         }
         obj.payment = {
@@ -196,4 +210,4 @@ const DoctorBooking = () => {
     )
 }
 
-export default DoctorBooking
+export default CarBooking
