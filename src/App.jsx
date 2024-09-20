@@ -57,8 +57,8 @@ function App() {
           <Route path='/dashboard/my-patients' element={<MyPatients />} />
           <Route path='/dashboard/reviews' element={<Reviews />} />
           <Route path='/dashboard/schedule' element={<Schedule />} />
-          {/*<Route path='/dashboard/appointments' element={<Appointments />} />*/}
-          {/*<Route path='/dashboard/appointments/:id' element={<ViewAppointment />} />*/}
+          <Route path='/dashboard/appointments' element={<Appointments />} />
+          <Route path='/dashboard/appointments/:id' element={<ViewAppointment />} />
           <Route path='/dashboard/prescription' element={<Prescription />} />
           <Route path='/dashboard/prescription/:id' element={<PrescriptionView />} />
           <Route path='/dashboard/appointment/treatment/:id' element={<Treatment />} />
@@ -85,7 +85,7 @@ function App() {
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
         <Route path='/booking/:carId' element={<CarBooking />} />
-        {/*<Route path='/booking/success/:id' element={<BookingSuccess />} />*/}
+        <Route path='/booking/success/:id' element={<BookingSuccess />} />
         {/*<Route path='/booking/invoice/:id' element={<BookingInvoice />} />*/}
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />

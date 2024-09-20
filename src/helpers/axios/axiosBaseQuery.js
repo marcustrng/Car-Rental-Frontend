@@ -1,8 +1,11 @@
-import { instance } from './axiosInstance';
+import {instance} from './axiosInstance';
 
 export const axiosBaseQuery =
-    ({ baseUrl } = { baseUrl: '' }) =>
-        async ({ url, method, body, params, headers }) => {
+    ({baseUrl} = {baseUrl: ''}) =>
+        async (data) => {
+            console.log("axiosBaseQuery data data", data);
+
+            var {url, method, body, params, headers} = data;
             console.log("axiosBaseQuery data", body);
 
             try {

@@ -89,7 +89,7 @@ export const carsApi = baseApi.injectEndpoints({
             providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
         }),
         getCheckCarAvailableById: builder.query({
-            query: ({ carId, selectedFromDate, selectedToDate, username }) => {
+            query: ({carId, selectedFromDate, selectedToDate, username}) => {
                 const requestBody = {
                     startDate: selectedFromDate,
                     endDate: selectedToDate,
@@ -114,35 +114,34 @@ export const carsApi = baseApi.injectEndpoints({
 
                 return response; // Return the CarViewModel directly
             },
-            providesTags: (result, error, id) => [{ type: tagTypes.cars, id }],
+            providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
         }),
-        postReserveById: builder.mutation({
-            mutation: ({ carId, selectedFromDate, selectedToDate, username }) => {
-                const requestBody = {
-                    startDate: selectedFromDate,
-                    endDate: selectedToDate,
-                    username: username,
-                };
+        createReserve: builder.mutation({
+            query: ({carId, data}) => {
 
                 // Log the request details
-                console.log("Requesting car availability with details:", {
+                console.log("Creating reservation with details:", {
                     carId,
-                    requestBody,
+                    data,
                 });
 
                 return {
                     url: `${CAR_URL}/reserve/${carId}`,
                     method: 'POST',
-                    body: requestBody,
+                    body: data
                 };
             },
-            transformResponse: (response) => {
-                // Log the full response
-                console.log("Full response from API /check/{id}:", response);
-
-                return response; // Return the CarViewModel directly
+            async onQueryStarted(arg, {queryFulfilled}) {
+                try {
+                    const response = await queryFulfilled;
+                    // Log the successful response
+                    console.log("Reservation created successfully:", response.data);
+                } catch (error) {
+                    // Log any error that occurs
+                    console.error("Failed to create reservation:", error);
+                }
             },
-            providesTags: (result, error, id) => [{ type: tagTypes.cars, id }],
+            invalidatesTags: [tagTypes.cars],
         }),
     }),
 });
@@ -152,5 +151,5 @@ export const {
     useGetAvailableCarsQuery,
     useGetCarByIdQuery,
     useGetCheckCarAvailableByIdQuery,
-    usePostReserveByIdMutation,
+    useCreateReserveMutation,
 } = carsApi;

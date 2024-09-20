@@ -54,7 +54,7 @@ const SearchContent = ({data, searchDateFrom, searchDateTo}) => {
                     </div>
                     <div className="clinic-booking">
                         <Link to={`/cars/profile/${data?.id}`} className="view-pro-btn">View Profile</Link>
-                        <Link to={`/booking/${data?.id}/${searchDateFrom}/${searchDateTo}`} className="apt-btn">Book
+                        <Link to={`/booking/${data?.id}`} className="apt-btn">Book
                             Appointment</Link>
                     </div>
                 </div>

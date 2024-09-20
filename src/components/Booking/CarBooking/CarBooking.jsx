@@ -3,20 +3,18 @@ import Footer from '../../Shared/Footer/Footer'
 import img from '../../../images/doc/doctor 3.jpg'
 import './index.css';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Button, Card, Col, Empty, message, Row, Steps} from 'antd';
+import {Button, Card, Col, Empty, message, Row} from 'antd';
 import moment from 'moment';
 import VerifyReverse from '../VerifyReverse';
-import PersonalInformation from '../PersonalInformation';
-import CheckoutPage from '../BookingCheckout/CheckoutPage';
 import {useCreateAppointmentMutation} from '../../../redux/api/appointmentApi';
 import {useDispatch} from 'react-redux';
 import {addInvoice} from '../../../redux/feature/invoiceSlice';
 import Header from '../../Shared/Header/Header';
 import useAuthCheck from '../../../redux/hooks/useAuthCheck';
 import {
+    useCreateReserveMutation,
     useGetCarByIdQuery,
-    useGetCheckCarAvailableByIdQuery,
-    usePostReserveByIdMutation
+    useGetCheckCarAvailableByIdQuery
 } from "../../../redux/api/carApi";
 
 const CarBooking = () => {
@@ -42,25 +40,19 @@ const CarBooking = () => {
     const [selectedFromDate, setSelectedFromDate] = useState('');
     const [selectedToDate, setSelectToDay] = useState('');
     const [isAvailable, setIsAvailable] = useState(false);
-    const [isCheck, setIsChecked] = useState(false);
-    const [patientId, setPatientId] = useState('');
-    const [isMakeAReverse, setIsMakeAReverse] = useState(false);
-    const [createAppointment, {
-        data: appointmentData,
-        isSuccess: createIsSuccess,
-        isError: createIsError,
-        error: createError,
-        isLoading: createIsLoading
-    }] = useCreateAppointmentMutation();
     const {carId, startDate, endDate} = useParams();
     console.log("carId", carId);
     console.log("startDate", startDate);
     console.log("endDate", endDate);
     const navigation = useNavigate();
     const {data, isLoading, isError, error} = useGetCarByIdQuery(carId);
-    if (isMakeAReverse) {
-        const {data: postReserveData} = usePostReserveByIdMutation(carId);
-    }
+    const [createReserve, {
+        data: createReserveData,
+        isSuccess: postReserveIsSuccess,
+        isLoading: postReserveIsLoading,
+        error: postReserveError
+    }] = useCreateReserveMutation();
+
     console.log(" 1selectedFromDate", selectedFromDate);
     console.log(" 1selectedToDate", selectedToDate);
     console.log(" carId,", carId);
@@ -68,9 +60,24 @@ const CarBooking = () => {
         data: getCheckCarAvailableByIdData,
     } = useGetCheckCarAvailableByIdQuery({
         carId,
-        selectedFromDate,
-        selectedToDate
+        selectedFromDate: selectedFromDate,
+        selectedToDate: selectedToDate
     });
+
+    const handleReserve = async () => {
+        console.log("handleReserve carId", carId);
+        console.log("handleReserve selectedFromDate", selectedFromDate);
+        console.log("handleReserve selectedToDate", selectedToDate);
+        const data = {
+            startDate: selectedFromDate,
+            endDate: selectedToDate,
+            username: 'user01'
+        };
+        createReserve({
+            carId: carId,
+            data: data
+        })
+    };
 
     const [selectValue, setSelectValue] = useState(initialValue);
     const [IsdDisable, setIsDisable] = useState(true);
@@ -81,23 +88,17 @@ const CarBooking = () => {
     }
 
     useEffect(() => {
-        const {
-            firstName,
-            lastName,
-            email,
-            phone,
-            nameOnCard,
-            cardNumber,
-            expiredMonth,
-            cardExpiredYear,
-            cvv,
-            reasonForVisit
-        } = selectValue;
-        const isInputEmpty = !firstName || !lastName || !email || !phone || !reasonForVisit;
-        const isConfirmInputEmpty = !nameOnCard || !cardNumber || !expiredMonth || !cardExpiredYear || !cvv || !isCheck;
-        setIsDisable(isInputEmpty);
-        setIsConfirmDisable(isConfirmInputEmpty);
-    }, [selectValue, isCheck])
+        if (postReserveIsSuccess) {
+            message.success("Successfully create reverse")
+            setSelectValue(initialValue);
+            console.log("createReserveData", createReserveData)
+            dispatch(addInvoice({...createReserveData}))
+            navigation(`/booking/success/${createReserveData.id}`)
+        }
+        if (postReserveError) {
+            message.error(error?.data?.message);
+        }
+    }, [postReserveIsSuccess, postReserveError])
 
 
     const handleDateChange = (dates) => {
@@ -118,17 +119,6 @@ const CarBooking = () => {
         }
         setIsAvailable(getCheckCarAvailableByIdData);
         console.log("isAvailable", isAvailable);
-    };
-
-    const makeAReverse = () => {
-        setIsMakeAReverse(true);
-    };
-
-    const next = () => {
-        setCurrent(current + 1)
-    };
-    const prev = () => {
-        setCurrent(current - 1)
     };
 
     let dContent = null;
@@ -173,74 +163,6 @@ const CarBooking = () => {
             </Card>
         </>
 
-    const steps = [
-        {
-            title: 'Verify Reverse',
-            content: <VerifyReverse
-                content={content}
-                dContent={dContent}
-                handleDateChange={handleDateChange}
-            />
-        },
-        {
-            title: 'Customer Information',
-            content: <PersonalInformation handleChange={handleChange} selectValue={selectValue}
-                                          setPatientId={setPatientId}/>
-        },
-        {
-            title: 'Payment',
-            content: <CheckoutPage
-                handleChange={handleChange}
-                selectValue={selectValue}
-                isCheck={isCheck}
-                setIsChecked={setIsChecked}
-                data={data}
-                // selectedDate={selectedDate}
-                // selectTime={selectTime}
-            />,
-        },
-    ]
-
-    const items = steps.map((item) => ({
-        key: item.title,
-        title: item.title,
-    }))
-
-    const handleConfirmSchedule = () => {
-        const obj = {};
-        obj.patientInfo = {
-            firstName: selectValue.firstName,
-            lastName: selectValue.lastName,
-            email: selectValue.email,
-            phone: selectValue.phone,
-            // scheduleDate: selectedDate,
-            // scheduleTime: selectTime,
-            doctorId: carId,
-            patientId: role !== '' && role === 'patient' ? patientId : undefined,
-        }
-        obj.payment = {
-            paymentType: selectValue.paymentType,
-            paymentMethod: selectValue.paymentMethod,
-            cardNumber: selectValue.cardNumber,
-            cardExpiredYear: selectValue.cardExpiredYear,
-            cvv: selectValue.cvv,
-            expiredMonth: selectValue.expiredMonth,
-            nameOnCard: selectValue.nameOnCard
-        }
-        createAppointment(obj);
-    }
-
-    useEffect(() => {
-        if (createIsSuccess) {
-            message.success("Succcessfully Appointment Scheduled")
-            setSelectValue(initialValue);
-            dispatch(addInvoice({...appointmentData}))
-            navigation(`/booking/success/${appointmentData.id}`)
-        }
-        if (createIsError) {
-            message.error(error?.data?.message);
-        }
-    }, [createIsSuccess, createError])
     return (
         <>
             <Header/>
@@ -257,7 +179,7 @@ const CarBooking = () => {
                     >Check Available</Button>
                     <Button type="primary"
                             disabled={!isAvailable}
-                            onClick={() => makeAReverse()}>Make Reverse</Button>
+                            onClick={handleReserve}>Make Reverse</Button>
                 </div>
             </div>
             <Footer/>
