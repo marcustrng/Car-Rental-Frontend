@@ -1,5 +1,6 @@
-export const setUserInfo = ({accessToken}) => {
-    return setLocalStorage('accessToken', accessToken)
+export const setUserInfo = ({accessToken, username}) => {
+    setLocalStorage('accessToken', accessToken)
+    setLocalStorage('username', username)
 }
 
 export const setLocalStorage = (key, token) => {

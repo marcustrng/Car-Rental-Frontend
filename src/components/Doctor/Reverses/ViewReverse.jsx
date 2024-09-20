@@ -10,7 +10,7 @@ import { clickToCopyClipBoard } from '../../../utils/copyClipBoard';
 import { FaPrint } from "react-icons/fa";
 import ReactToPrint from "react-to-print";
 
-const ViewAppointment = () => {
+const ViewReverse = () => {
     const ref = useRef();
     const { id } = useParams();
     const { data, isLoading, isError } = useGetSingleAppointmentQuery(id);
@@ -112,4 +112,4 @@ const ViewAppointment = () => {
     )
 }
 
-export default ViewAppointment
+export default ViewReverse

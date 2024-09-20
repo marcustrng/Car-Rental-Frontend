@@ -6,7 +6,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {Button, Card, Col, Empty, message, Row} from 'antd';
 import moment from 'moment';
 import VerifyReverse from '../VerifyReverse';
-import {useCreateAppointmentMutation} from '../../../redux/api/appointmentApi';
 import {useDispatch} from 'react-redux';
 import {addInvoice} from '../../../redux/feature/invoiceSlice';
 import Header from '../../Shared/Header/Header';

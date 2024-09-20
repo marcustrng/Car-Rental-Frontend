@@ -6,7 +6,7 @@ import CarBooking from './components/Booking/CarBooking/CarBooking';
 import BookingSuccess from './components/Booking/BookingSuccess';
 import BookingInvoice from './components/Booking/BookingInvoice/BookingInvoice';
 import CarProfile from './components/Doctor/CarProfile/CarProfile';
-import Appointments from './components/Doctor/Appointments/Appointments';
+import Reverses from './components/Doctor/Reverses/Reverses';
 import MyPatients from './components/Doctor/MyPatients/MyPatients';
 import Reviews from './components/Doctor/Reviews/Reviews';
 import Schedule from './components/Doctor/Schedule/Schedule';
@@ -37,7 +37,7 @@ import Treatment from './components/Doctor/Treatment/Treatment';
 import Prescription from './components/Doctor/Prescription/Prescription';
 import PrescriptionView from './components/Doctor/Prescription/PrescriptionView';
 import TreatmentEdit from './components/Doctor/Treatment/TreatmentEdit';
-import ViewAppointment from './components/Doctor/Appointments/ViewAppointment';
+import ViewReverse from './components/Doctor/Reverses/ViewReverse';
 import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
@@ -57,8 +57,8 @@ function App() {
           <Route path='/dashboard/my-patients' element={<MyPatients />} />
           <Route path='/dashboard/reviews' element={<Reviews />} />
           <Route path='/dashboard/schedule' element={<Schedule />} />
-          <Route path='/dashboard/appointments' element={<Appointments />} />
-          <Route path='/dashboard/appointments/:id' element={<ViewAppointment />} />
+          <Route path='/dashboard/reserses' element={<Reverses />} />
+          <Route path='/dashboard/reserses/:id' element={<ViewReverse />} />
           <Route path='/dashboard/prescription' element={<Prescription />} />
           <Route path='/dashboard/prescription/:id' element={<PrescriptionView />} />
           <Route path='/dashboard/appointment/treatment/:id' element={<Treatment />} />

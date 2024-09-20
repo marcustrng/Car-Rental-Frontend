@@ -19,7 +19,8 @@ export const authApi = baseApi.injectEndpoints({
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     // Log the state of the query before awaiting it
-                    console.log("Attempting to fulfill login query...");
+                    console.log("Attempting to fulfill login query...", queryFulfilled);
+                    console.log("Attempting to fulfill login arg", arg);
 
                     const result = (await queryFulfilled).data;
 
@@ -27,7 +28,7 @@ export const authApi = baseApi.injectEndpoints({
                     console.log("Login successful, received response:", result);
 
                     // Assuming setUserInfo is defined elsewhere
-                    setUserInfo({ accessToken: result.Authorization });
+                    setUserInfo({ accessToken: result.Authorization, username: arg.username });
                 } catch (error) {
                     // Log any error that occurs during the login process
                     console.error("Login failed:", error);

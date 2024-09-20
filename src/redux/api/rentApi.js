@@ -1,30 +1,39 @@
-import { tagTypes } from "../tag-types";
-import { baseApi } from "./baseApi"
+import {baseApi} from "./baseApi"
 
 const RENT_URL = '/rents'
 
 export const appointmentApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        trackAppointment: build.mutation({
-            query: (data) => ({
-                url: `${RENT_URL}/tracking`,
-                method: 'POST',
-                data: data
+        getRentById: build.query({
+            query: (id) => ({
+                url: `${RENT_URL}/${id}`,
+                method: 'GET'
             })
+        }),
+        getAllRentByUser: build.query({
+            query: (username) => ({
+                url: `/sales/all/${username}?page=0&query=`,
+                method: 'GET',
+            }),
+            transformResponse: (response) => {
+                // Log the full response
+                console.log("Full response from API:", response);
+
+                return {
+                    rents: response.content,
+                    meta: {
+                        totalElements: response.totalElements,
+                        totalPages: response.totalPages,
+                        currentPage: response.number,
+                        pageSize: response.size,
+                    },
+                };
+            },
         }),
     })
 })
 
-export const { 
-    useGetDoctorAppointmentsQuery,
-    useGetPatientAppointmentsQuery,
-    useGetDoctorPatientsQuery,
-    useCreateAppointmentMutation,
-    useGetSingleAppointmentQuery,
-    useGetAppointmentedPaymentInfoQuery,
-    useGetPatientInvoicesQuery,
-    useGetDoctorInvoicesQuery,
-    useUpdateAppointmentMutation,
-    useCreateAppointmentByUnauthenticateUserMutation, 
-    useTrackAppointmentMutation
+export const {
+    useGetRentByIdQuery,
+    useGetAllRentByUserQuery,
 } = appointmentApi;
