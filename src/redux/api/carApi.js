@@ -88,6 +88,62 @@ export const carsApi = baseApi.injectEndpoints({
             },
             providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
         }),
+        getCheckCarAvailableById: builder.query({
+            query: ({ carId, selectedFromDate, selectedToDate, username }) => {
+                const requestBody = {
+                    startDate: selectedFromDate,
+                    endDate: selectedToDate,
+                    username: username,
+                };
+
+                // Log the request details
+                console.log("Requesting car availability with details:", {
+                    carId,
+                    requestBody,
+                });
+
+                return {
+                    url: `${CAR_URL}/check/${carId}`,
+                    method: 'POST',
+                    body: requestBody,
+                };
+            },
+            transformResponse: (response) => {
+                // Log the full response
+                console.log("Full response from API /check/{id}:", response);
+
+                return response; // Return the CarViewModel directly
+            },
+            providesTags: (result, error, id) => [{ type: tagTypes.cars, id }],
+        }),
+        postReserveById: builder.mutation({
+            mutation: ({ carId, selectedFromDate, selectedToDate, username }) => {
+                const requestBody = {
+                    startDate: selectedFromDate,
+                    endDate: selectedToDate,
+                    username: username,
+                };
+
+                // Log the request details
+                console.log("Requesting car availability with details:", {
+                    carId,
+                    requestBody,
+                });
+
+                return {
+                    url: `${CAR_URL}/reserve/${carId}`,
+                    method: 'POST',
+                    body: requestBody,
+                };
+            },
+            transformResponse: (response) => {
+                // Log the full response
+                console.log("Full response from API /check/{id}:", response);
+
+                return response; // Return the CarViewModel directly
+            },
+            providesTags: (result, error, id) => [{ type: tagTypes.cars, id }],
+        }),
     }),
 });
 
@@ -95,4 +151,6 @@ export const {
     useGetCarsQuery,
     useGetAvailableCarsQuery,
     useGetCarByIdQuery,
+    useGetCheckCarAvailableByIdQuery,
+    usePostReserveByIdMutation,
 } = carsApi;

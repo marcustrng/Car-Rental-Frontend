@@ -84,7 +84,7 @@ function App() {
         <Route path='/cars/profile/:id' element={<CarProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
-        <Route path='/booking/:carId/:startDate/:endDate' element={<CarBooking />} />
+        <Route path='/booking/:carId' element={<CarBooking />} />
         {/*<Route path='/booking/success/:id' element={<BookingSuccess />} />*/}
         {/*<Route path='/booking/invoice/:id' element={<BookingInvoice />} />*/}
         {/* Admin Dashboard  */}

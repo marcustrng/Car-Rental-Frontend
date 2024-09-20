@@ -2,31 +2,35 @@ import { Checkbox, message } from 'antd';
 import { useEffect, useState } from 'react';
 import useAuthCheck from '../../redux/hooks/useAuthCheck';
 
-const PersonalInformation = ({ handleChange, selectValue, setPatientId =() =>{} }) => {
-    const { firstName, lastName, email, phone, reasonForVisit, description, address } = selectValue;
+const PersonalInformation = ({
+                                 handleChange, selectValue, setCustomerId = () => {
+    }
+                             }) => {
+    const {firstName, lastName, email, phone, reasonForVisit, description, address} = selectValue;
     const [checked, setChecked] = useState(false);
-    const { data } = useAuthCheck();
+    const {data} = useAuthCheck();
 
     const onChange = (e) => {
         setChecked(e.target.checked);
     };
 
-    useEffect(() =>{
-        if(checked){
-            if(data.id){
-                setPatientId(data.id);
+    useEffect(() => {
+        if (checked) {
+            console.log("useAuthCheck data", data);
+            if (data.id) {
+                setCustomerId(data.id);
                 message.success("User Has Found !")
-            }else{
+            } else {
                 message.error("User is not Found, Please Login!")
             }
         }
-    }, [checked, data, setPatientId])
+    }, [checked, data, setCustomerId])
 
     return (
         <form className="rounded p-3 mt-5" style={{ background: "#f8f9fa" }}>
             <div className="row">
                 <Checkbox checked={checked} onChange={onChange}>
-                    Allready Have an Account ?
+                    Already Have an Account ?
                 </Checkbox>
 
                 <div className="col-md-6 col-sm-12">

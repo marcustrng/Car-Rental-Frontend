@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
-import SocialSignUp from './SocialSignUp';
-import { useForm } from "react-hook-form";
+import React, {useEffect, useState} from 'react';
+import {FaEnvelope, FaLock} from 'react-icons/fa';
+import {useForm} from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from 'react-router-dom';
-import { Toast } from 'react-bootstrap';
-import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
-import { message } from 'antd';
-import { useMessageEffect } from '../../utils/messageSideEffect';
+import {useNavigate} from 'react-router-dom';
+import {Toast} from 'react-bootstrap';
+import {useResetPasswordMutation, useUserLoginMutation} from '../../redux/api/authApi';
+import {message} from 'antd';
+import {useMessageEffect} from '../../utils/messageSideEffect';
 
 const SignIn = ({ handleResponse }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);

@@ -38,7 +38,7 @@ const AppointmentPage = () => {
   const [selectValue, setSelectValue] = useState(initialValue);
   const [IsDisable, setIsDisable] = useState(true);
   const [isConfirmDisable, setIsConfirmDisable] = useState(true);
-  const [patientId, setPatientId] = useState('');
+  const [customerId, setCustomerId] = useState('');
   const navigation = useNavigate();
 
   const [createAppointmentByUnauthenticateUser, {data: appointmentData, isError, isSuccess, isLoading, error}] = useCreateAppointmentByUnauthenticateUserMutation()
@@ -81,7 +81,7 @@ const AppointmentPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-        message.success("Succcessfully Appointment Scheduled")
+        message.success("Successfully Appointment Scheduled")
         setSelectValue(initialValue);
         dispatch(addInvoice({ ...appointmentData }))
         navigation(`/booking/success/${appointmentData?.id}`)
@@ -104,8 +104,8 @@ const AppointmentPage = () => {
       />
     },
     {
-      title: 'Patient Information',
-      content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setPatientId={setPatientId}/>
+      title: 'Customer Information',
+      content: <PersonalInformation handleChange={handleChange} selectValue={selectValue} setCustomerId={setCustomerId}/>
     },
     {
       title: 'Payment',

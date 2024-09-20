@@ -12,10 +12,10 @@ import {Autoplay, Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
-import {useGetAvailableCarsQuery} from "../../../redux/api/carApi";
+import {useGetAvailableCarsQuery, useGetCarsQuery} from "../../../redux/api/carApi";
 
 const RentCar = () => {
-	const { data, isError, isLoading } = useGetAvailableCarsQuery({ limit: 10 });
+	const { data, isError, isLoading } = useGetCarsQuery({ limit: 10 });
 	const cars = data?.cars;
 	console.log("cars", cars);
 	const [addFavourite, { isSuccess, isLoading: FIsLoading, isError: fIsError, error }] = useAddFavouriteMutation();

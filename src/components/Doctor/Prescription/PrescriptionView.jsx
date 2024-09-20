@@ -85,11 +85,12 @@ const PrescriptionView = () => {
                             </div>
                             <div className="col-md-12">
                                 <div className="invoice-info">
-                                    <strong className="customer-text text-secondary">Patient Information:</strong>
+                                    <strong className="customer-text text-secondary">Customer Information:</strong>
                                     <div className="invoice-details invoice-details-two">
                                         <div className="d-flex justify-content-between patient-name">
                                             <div>
-                                                <h5 style={{ fontWeight: 700 }}>Patient Name : {data?.patient?.firstName + ' ' + data?.patient?.lastName}</h5>
+                                                <h5 style={{fontWeight: 700}}>Patient Name
+                                                    : {data?.patient?.firstName + ' ' + data?.patient?.lastName}</h5>
                                                 <p className="form-text">Address: {data?.patient?.address}, {data?.patient?.city}, {data?.patient?.country}</p>
                                             </div>
                                             <div>

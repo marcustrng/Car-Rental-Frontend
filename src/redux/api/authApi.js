@@ -6,17 +6,31 @@ const AUTH_URL = '/auth'
 export const authApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         userLogin: build.mutation({
-            query: (loginData) => ({
-                url: `/login`,
-                method: 'POST',
-                data: loginData,
-            }),
+            query: (loginData) => {
+                // Log the login data being sent
+                console.log("Sending login data:", loginData);
+
+                return {
+                    url: `/login`,
+                    method: 'POST',
+                    body: loginData, // Use 'body' instead of 'data' for fetch
+                };
+            },
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
-                    console.log("queryFulfilled", queryFulfilled);
+                    // Log the state of the query before awaiting it
+                    console.log("Attempting to fulfill login query...");
+
                     const result = (await queryFulfilled).data;
+
+                    // Log the successful response
+                    console.log("Login successful, received response:", result);
+
+                    // Assuming setUserInfo is defined elsewhere
                     setUserInfo({ accessToken: result.Authorization });
                 } catch (error) {
+                    // Log any error that occurs during the login process
+                    console.error("Login failed:", error);
                 }
             },
         }),
