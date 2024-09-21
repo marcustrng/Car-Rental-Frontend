@@ -9,7 +9,7 @@ import {Empty} from 'antd';
 import {useGetCarsQuery} from "../../redux/api/carApi";
 
 const About = () => {
-    const {data: carData, isLoading: isLoading, isError: isError} = useGetCarsQuery({size: 4});
+    const {data: carData, isLoading, isError} = useGetCarsQuery({size: 4});
 
     const cars = carData?.cars;
 
