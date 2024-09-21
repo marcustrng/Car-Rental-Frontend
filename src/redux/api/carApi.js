@@ -1,5 +1,6 @@
 import {tagTypes} from "../tag-types";
 import {baseApi} from "./baseApi"
+import {isLoggedIn} from "../../service/auth.service";
 
 const CAR_URL = '/cars'
 
@@ -71,7 +72,7 @@ export const carsApi = baseApi.injectEndpoints({
             },
             providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
         }),
-        getCheckCarAvailableById: builder.query({
+        getCheckCarAvailableById: builder.mutation({
             query: ({carId, selectedFromDate, selectedToDate, username}) => {
                 const requestBody = {
                     startDate: selectedFromDate,
@@ -94,16 +95,11 @@ export const carsApi = baseApi.injectEndpoints({
                 return {
                     url: `${CAR_URL}/reserve/${carId}`,
                     method: 'POST',
-                    body: data
+                    body: data,
+                    headers: {
+                        Authorization: `${isLoggedIn()}`,  // Add the token to the headers
+                    },
                 };
-            },
-            async onQueryStarted(arg, {queryFulfilled}) {
-                try {
-                    const response = await queryFulfilled;
-                    // Log the successful response
-                } catch (error) {
-                    // Log any error that occurs
-                }
             },
             invalidatesTags: [tagTypes.cars],
         }),
@@ -114,6 +110,6 @@ export const {
     useGetCarsQuery,
     useGetAvailableCarsQuery,
     useGetCarByIdQuery,
-    useGetCheckCarAvailableByIdQuery,
+    useGetCheckCarAvailableByIdMutation,
     useCreateReserveMutation,
 } = carsApi;

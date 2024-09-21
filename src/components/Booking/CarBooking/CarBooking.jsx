@@ -13,12 +13,12 @@ import useAuthCheck from '../../../redux/hooks/useAuthCheck';
 import {
     useCreateReserveMutation,
     useGetCarByIdQuery,
-    useGetCheckCarAvailableByIdQuery
+    useGetCheckCarAvailableByIdMutation
 } from "../../../redux/api/carApi";
 
 const CarBooking = () => {
     const dispatch = useDispatch();
-    const { data: loginInfo } = useAuthCheck();
+    const {data: loginInfo} = useAuthCheck();
     let initialValue = {
         paymentMethod: 'paypal',
         paymentType: 'creditCard',
@@ -35,7 +35,7 @@ const CarBooking = () => {
         cardExpiredYear: '',
         cvv: '',
     }
-    const {data: loggedInUser, role} = useAuthCheck();
+    const {authChecked} = useAuthCheck();
     const [selectedFromDate, setSelectedFromDate] = useState('');
     const [selectedToDate, setSelectedToDay] = useState('');
     const [isAvailable, setIsAvailable] = useState(false);
@@ -49,13 +49,14 @@ const CarBooking = () => {
         error: postReserveError
     }] = useCreateReserveMutation();
 
-    const {
-        data: getCheckCarAvailableByIdData,
-    } = useGetCheckCarAvailableByIdQuery({
-        carId,
-        selectedFromDate: selectedFromDate,
-        selectedToDate: selectedToDate
-    });
+    const [checkCarAvailability, {data: getCheckCarAvailableByIdData}] = useGetCheckCarAvailableByIdMutation();
+    const handleCheckAvailability = () => {
+        checkCarAvailability({
+            carId: carId,                  // The car ID to check
+            selectedFromDate: selectedFromDate,  // The start date
+            selectedToDate: selectedToDate       // The end date
+        });
+    };
 
     const handleReserve = async () => {
         const data = {
@@ -84,20 +85,22 @@ const CarBooking = () => {
     }, [postReserveIsSuccess, postReserveError])
 
 
-    const handleDateChange = (dates) => {
+    const handleDateChange = async (dates) => {
         setSelectedFromDate(dates[0].format('YYYY-MM-DD').toLowerCase());
         setSelectedToDay(dates[1].format('YYYY-MM-DD').toLowerCase());
         setIsAvailable(false);
     }
 
     const checkAvailable = () => {
-        if (!loginInfo) {
-            navigation(`/login`)
+        if (!authChecked) {
+            message.error("You need to login first!")
+            return;
         }
         if (!selectedFromDate || !selectedToDate) {
             message.error("You need to select Date Range first!")
             return;
         }
+        handleCheckAvailability();
         if (getCheckCarAvailableByIdData) {
             message.success("Available");
         } else {

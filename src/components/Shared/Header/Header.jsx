@@ -46,7 +46,7 @@ const Header = () => {
             <div className='my-2'>
                 <h5 className='text-capitalize'>{data?.firstName + ' ' + data?.lastName}</h5>
                 <p className='my-0'>{data?.email}</p>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/reserves">My Bookings</Link>
             </div>
             <Button variant="outline-danger" className='w-100' size="sm" onClick={handleSignOut}>
                 Logged Out

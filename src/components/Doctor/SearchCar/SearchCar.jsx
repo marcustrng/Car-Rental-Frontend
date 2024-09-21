@@ -19,8 +19,8 @@ const SearchCar = () => {
     query["size"] = size;
     query["page"] = page;
 
-    const resetFilter = () =>{
-        setPage(1);
+    const resetFilter = () => {
+        setPage(0);
         setSize(10);
         setSearchTerm("");
         setSearchDateFrom(moment().format('YYYY-MM-DD'));
@@ -40,7 +40,7 @@ const SearchCar = () => {
         query.endDate = searchDateTo;
     }
 
-    const { data, isLoading, isError } = useGetAvailableCarsQuery({ ...query })
+    const {data, isLoading, isError} = useGetAvailableCarsQuery({...query})
     const cars = data?.cars;
     const meta = data?.meta;
 
@@ -48,14 +48,15 @@ const SearchCar = () => {
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>
-    if (!isLoading && !isError && cars.length === 0) content = <div><Empty /></div>
+    if (!isLoading && !isError && cars.length === 0) content = <div><Empty/></div>
     if (!isLoading && !isError && cars.length > 0) content =
         <>
             {
                 cars && cars?.map((item, id) => (
-                    <SearchContent key={id + item.id} data={item}
-                                   searchDateFrom={searchDateFrom}
-                                   searchDateTo={searchDateTo}/>
+                    <SearchContent
+                        key={id + item.id}
+                        data={item}
+                    />
                 ))
             }
         </>
@@ -67,9 +68,9 @@ const SearchCar = () => {
 
     return (
         <div>
-            <Header />
-            <SubHeader title='Cars' subtitle='Lorem ipsum dolor sit amet.' />
-            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
+            <Header/>
+            <SubHeader title='Cars' subtitle='Lorem ipsum dolor sit amet.'/>
+            <div className="container" style={{marginBottom: 200, marginTop: 80}}>
                 <div className="container-fluid">
                     <div className="row">
                         <SearchSidebar
@@ -93,7 +94,7 @@ const SearchCar = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     )
 }

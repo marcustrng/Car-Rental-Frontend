@@ -60,7 +60,7 @@ const BookingSuccess = () => {
                             <div className='card border-0 p-3 rounded mb-5'>
                                 <div className='d-flex gap-3 mb-2 align-items-center'>
                                     <FaAlignLeft style={{fontSize: '1rem'}}/>
-                                    <Link to={`/dashboard/appointments/${id}`}><h5 className='text-primary'>View
+                                    <Link to={`/dashboard/reserves/${id}`}><h5 className='text-primary'>View
                                         Reverse Details</h5></Link>
                                 </div>
                                 <div className='d-flex gap-3 mb-1'>

@@ -9,6 +9,7 @@ export const tagTypes = {
     blogs: 'blogs',
     medicine: 'medicine',
     cars: 'cars',
+    users: 'users',
 }
 
 export const tagTypeList = [
@@ -22,4 +23,5 @@ export const tagTypeList = [
     tagTypes.blogs,
     tagTypes.medicine,
     tagTypes.cars,
+    tagTypes.users,
 ]

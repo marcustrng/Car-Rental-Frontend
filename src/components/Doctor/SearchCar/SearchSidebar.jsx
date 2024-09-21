@@ -33,6 +33,13 @@ const SearchSidebar = ({setSearchTerm, setSearchDateFrom, setSearchDateTo, reset
         return current && (current.isBefore(dateFrom) || current.isBefore(moment().startOf('day')));
     };
 
+    const onReset = () => {
+        setDateFrom(moment());
+        setDateTo(null);
+        setQuery('');
+        resetFilter();
+    };
+
     const onSearch = () => {
         const searchTerm = query;
         const searchDateFrom = dateFrom ? dateFrom.format('YYYY-MM-DD') : null;
@@ -105,7 +112,7 @@ const SearchSidebar = ({setSearchTerm, setSearchDateFrom, setSearchDateTo, reset
                 {
                     Object.keys(query).length > 4 && <Button className='w-100 mt-4 mb-2'
                                                              style={{backgroundColor: '#1977cc'}}
-                                                             onClick={resetFilter}
+                                                             onClick={onReset}
                                                              type="primary"
                                                              shape="round"
                                                              icon={<FaRedoAlt/>}

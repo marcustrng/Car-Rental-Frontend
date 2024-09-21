@@ -1,31 +1,20 @@
 import React, {useEffect} from 'react';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
-import img from '../../../images/avatar.jpg';
 
-import './Reverses.css';
+import './Reserves.css';
 import {useUpdateAppointmentMutation} from '../../../redux/api/appointmentApi';
-import moment from 'moment';
 import {Button, Empty, message, Tag, Tooltip} from 'antd';
-import {
-    FaBriefcaseMedical,
-    FaCheck,
-    FaClock,
-    FaEnvelope,
-    FaEye,
-    FaLocationArrow,
-    FaPhoneAlt,
-    FaTimes
-} from "react-icons/fa";
+import {FaCheck, FaTimes} from "react-icons/fa";
 import {Link} from 'react-router-dom';
 import {clickToCopyClipBoard} from '../../../utils/copyClipBoard';
 import {useGetAllRentByUserQuery} from "../../../redux/api/rentApi";
 import {getFromLocalStorage} from "../../../utils/local-storage";
 
-const Reverses = () => {
+const Reserves = () => {
     let username = getFromLocalStorage('username');
     const {data: rentData, isError, isLoading} = useGetAllRentByUserQuery(username);
     const rents = rentData?.rents;
-
+    console.log("rentData", rentData);
     const [updateAppointment, {isError: updateIsError, isSuccess, error}] = useUpdateAppointmentMutation();
     const updatedApppointmentStatus = (id, type) => {
         const changeObj = {
@@ -148,4 +137,4 @@ const Reverses = () => {
     )
 }
 
-export default Reverses
+export default Reserves
