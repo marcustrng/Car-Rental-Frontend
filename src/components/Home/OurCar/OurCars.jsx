@@ -1,11 +1,9 @@
 import './index.css';
-import { FaFacebookSquare, FaInstagramSquare, FaLinkedin } from "react-icons/fa";
-import { Empty } from 'antd';
-import { useGetCarsQuery } from '../../../redux/api/carApi';
+import {Empty} from 'antd';
+import {useGetCarsQuery} from '../../../redux/api/carApi';
 
 const OurCars = () => {
     const { data, isLoading, isError } = useGetCarsQuery({ limit: 4 });
-    console.log("data", data);
     const cars = data?.cars;
 
     let content = null;

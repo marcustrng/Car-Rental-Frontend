@@ -47,11 +47,6 @@ const SearchSidebar = ({setSearchTerm, setSearchDateFrom, setSearchDateTo, reset
 
         // Reset error state if validation passes
         setError(false);
-
-        console.log("Search Term:", searchTerm);
-        console.log("Date From:", searchDateFrom);
-        console.log("Date To:", searchDateTo);
-
         setSearchTerm(searchTerm);
         setSearchDateFrom(searchDateFrom);
         setSearchDateTo(searchDateTo);

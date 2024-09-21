@@ -45,61 +45,48 @@ import NotFound from './components/UI/NotFound';
 import {store} from "./redux/store";
 
 function App() {
-  let state = store.getState();
-  console.log("state", state.invoice);
+    return (
+        <Router>
+            <Routes>
+                <Route element={<PrivateOutlet/>}>
+                    {/* Customer Dashboard  */}
+                    <Route path='/dashboard' element={<Dashboard/>}/>
+                    <Route path='/dashboard/reviews' element={<Reviews/>}/>
+                    <Route path='/dashboard/schedule' element={<Schedule/>}/>
+                    <Route path='/dashboard/reserses' element={<Reverses/>}/>
+                    <Route path='/dashboard/reserses/:id' element={<ViewReverse/>}/>
+                    <Route path='/dashboard/prescription' element={<Prescription/>}/>
+                    <Route path='/dashboard/prescription/:id' element={<PrescriptionView/>}/>
+                    <Route path='/dashboard/appointment/treatment/:id' element={<Treatment/>}/>
+                    <Route path='/dashboard/appointment/treatment/edit/:id' element={<TreatmentEdit/>}/>
+                    <Route path='/dashboard/invoices' element={<DoctorInvoice/>}/>
 
-  return (
-    <Router>
-      <Routes>
-        <Route element={<PrivateOutlet />}>
-          <Route path='/dashboard/blogs' element={<Blogs />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/dashboard/my-patients' element={<MyPatients />} />
-          <Route path='/dashboard/reviews' element={<Reviews />} />
-          <Route path='/dashboard/schedule' element={<Schedule />} />
-          <Route path='/dashboard/reserses' element={<Reverses />} />
-          <Route path='/dashboard/reserses/:id' element={<ViewReverse />} />
-          <Route path='/dashboard/prescription' element={<Prescription />} />
-          <Route path='/dashboard/prescription/:id' element={<PrescriptionView />} />
-          <Route path='/dashboard/appointment/treatment/:id' element={<Treatment />} />
-          <Route path='/dashboard/appointment/treatment/edit/:id' element={<TreatmentEdit />} />
-          <Route path='/dashboard/change-password' element={<ChangePassword />} />
-          <Route path='/dashboard/profile-setting' element={<ProfileSetting />} />
-          <Route path='/dashboard/favourite' element={<PatientFavouriteDoctor />} />
-          <Route path='/dashboard/invoices' element={<DoctorInvoice />} />
-        </Route>
-        <Route path='/login' element={<SignInForm />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/blog/:id' element={<BlogDetails />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/service' element={<Service />} />
-        <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
-        <Route path='/appointment' element={<AppointmentPage />} />
-        <Route path='/track-appointment' element={<TrackAppointment/>}/>
-        <Route path='/doctors' element={<SearchCar/>}/>
-        <Route path='/doctors/profile/:id' element={<CarProfile/>}/>
-        <Route path='/cars' element={<SearchCar/>}/>
-        <Route path='/cars/profile/:id' element={<CarProfile />} />
-        <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
-        <Route path='/dashboard/blogs/create' element={<AddBlog />} />
-        <Route path='/booking/:carId' element={<CarBooking />} />
-        <Route path='/booking/success/:id' element={<BookingSuccess />} />
-        {/*<Route path='/booking/invoice/:id' element={<BookingInvoice />} />*/}
-        {/* Admin Dashboard  */}
-        <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        <Route path='/admin/appointments' element={<AdminAppointments />} />
-        <Route path='/admin/doctors' element={<Doctors />} />
-        <Route path='/admin/patients' element={<Patients />} />
-        <Route path='/admin/profile' element={<Profile />} />
-        <Route path='/admin/reviews' element={<AdminReviews />} />
-        <Route path='/admin/transaction' element={<Transactions />} />
-        <Route path='/admin/specialites' element={<Specialites />} />
+                    {/* Admin Dashboard  */}
+                    <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+                    <Route path='/admin/appointments' element={<AdminAppointments/>}/>
+                    <Route path='/admin/doctors' element={<Doctors/>}/>
+                    <Route path='/admin/patients' element={<Patients/>}/>
+                    <Route path='/admin/transaction' element={<Transactions/>}/>
+                    <Route path='/admin/specialites' element={<Specialites/>}/>
+                </Route>
+                <Route path='/' element={<Home/>}/>
+                <Route path='/contact' element={<Contact/>}/>
+                <Route path='/about' element={<About/>}/>
+                <Route path='/service' element={<Service/>}/>
+                <Route path='/login' element={<SignInForm/>}/>
+                <Route path='/blog' element={<Blog/>}/>
+                <Route path='/blog/:id' element={<BlogDetails/>}/>
+                <Route path='/track-appointment' element={<TrackAppointment/>}/>
+                <Route path='/cars' element={<SearchCar/>}/>
+                <Route path='/cars/:id' element={<CarProfile/>}/>
+                <Route path='/booking/:carId' element={<CarBooking/>}/>
+                <Route path='/booking/success/:id' element={<BookingSuccess/>}/>
+                <Route path='/booking/invoice/:id' element={<BookingInvoice/>}/>
 
-        <Route path='*' element={<NotFound/>}/>
-      </Routes>
-    </Router >
-  );
+                <Route path='*' element={<NotFound/>}/>
+            </Routes>
+        </Router>
+    );
 }
+
 export default App;

@@ -16,7 +16,6 @@ const PersonalInformation = ({
 
     useEffect(() => {
         if (checked) {
-            console.log("useAuthCheck data", data);
             if (data.id) {
                 setCustomerId(data.id);
                 message.success("User Has Found !")

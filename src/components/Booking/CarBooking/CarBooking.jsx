@@ -18,6 +18,7 @@ import {
 
 const CarBooking = () => {
     const dispatch = useDispatch();
+    const { data: loginInfo } = useAuthCheck();
     let initialValue = {
         paymentMethod: 'paypal',
         paymentType: 'creditCard',
@@ -35,14 +36,10 @@ const CarBooking = () => {
         cvv: '',
     }
     const {data: loggedInUser, role} = useAuthCheck();
-    const [current, setCurrent] = useState(0);
     const [selectedFromDate, setSelectedFromDate] = useState('');
-    const [selectedToDate, setSelectToDay] = useState('');
+    const [selectedToDate, setSelectedToDay] = useState('');
     const [isAvailable, setIsAvailable] = useState(false);
-    const {carId, startDate, endDate} = useParams();
-    console.log("carId", carId);
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
+    const {carId} = useParams();
     const navigation = useNavigate();
     const {data, isLoading, isError, error} = useGetCarByIdQuery(carId);
     const [createReserve, {
@@ -52,9 +49,6 @@ const CarBooking = () => {
         error: postReserveError
     }] = useCreateReserveMutation();
 
-    console.log(" 1selectedFromDate", selectedFromDate);
-    console.log(" 1selectedToDate", selectedToDate);
-    console.log(" carId,", carId);
     const {
         data: getCheckCarAvailableByIdData,
     } = useGetCheckCarAvailableByIdQuery({
@@ -64,9 +58,6 @@ const CarBooking = () => {
     });
 
     const handleReserve = async () => {
-        console.log("handleReserve carId", carId);
-        console.log("handleReserve selectedFromDate", selectedFromDate);
-        console.log("handleReserve selectedToDate", selectedToDate);
         const data = {
             startDate: selectedFromDate,
             endDate: selectedToDate,
@@ -79,18 +70,11 @@ const CarBooking = () => {
     };
 
     const [selectValue, setSelectValue] = useState(initialValue);
-    const [IsdDisable, setIsDisable] = useState(true);
-    const [IsConfirmDisable, setIsConfirmDisable] = useState(true);
-
-    const handleChange = (e) => {
-        setSelectValue({...selectValue, [e.target.name]: e.target.value})
-    }
 
     useEffect(() => {
         if (postReserveIsSuccess) {
             message.success("Successfully create reverse")
             setSelectValue(initialValue);
-            console.log("createReserveData", createReserveData)
             dispatch(addInvoice({...createReserveData}))
             navigation(`/booking/success/${createReserveData.id}`)
         }
@@ -102,11 +86,14 @@ const CarBooking = () => {
 
     const handleDateChange = (dates) => {
         setSelectedFromDate(dates[0].format('YYYY-MM-DD').toLowerCase());
-        setSelectToDay(dates[1].format('YYYY-MM-DD').toLowerCase());
+        setSelectedToDay(dates[1].format('YYYY-MM-DD').toLowerCase());
         setIsAvailable(false);
     }
 
     const checkAvailable = () => {
+        if (!loginInfo) {
+            navigation(`/login`)
+        }
         if (!selectedFromDate || !selectedToDate) {
             message.error("You need to select Date Range first!")
             return;
@@ -117,7 +104,6 @@ const CarBooking = () => {
             message.error("Not available");
         }
         setIsAvailable(getCheckCarAvailableByIdData);
-        console.log("isAvailable", isAvailable);
     };
 
     let dContent = null;

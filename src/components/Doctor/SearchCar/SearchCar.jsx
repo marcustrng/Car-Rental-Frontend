@@ -41,7 +41,6 @@ const SearchCar = () => {
     }
 
     const { data, isLoading, isError } = useGetAvailableCarsQuery({ ...query })
-    console.log(data)
     const cars = data?.cars;
     const meta = data?.meta;
 

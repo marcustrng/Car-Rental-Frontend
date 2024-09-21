@@ -3,10 +3,7 @@ import {instance} from './axiosInstance';
 export const axiosBaseQuery =
     ({baseUrl} = {baseUrl: ''}) =>
         async (data) => {
-            console.log("axiosBaseQuery data data", data);
-
             var {url, method, body, params, headers} = data;
-            console.log("axiosBaseQuery data", body);
 
             try {
                 const result = await instance({
@@ -16,7 +13,6 @@ export const axiosBaseQuery =
                     params,
                     headers: headers
                 })
-                console.log("result", result);
 
                 return result
             } catch (axiosError) {

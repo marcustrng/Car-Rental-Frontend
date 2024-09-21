@@ -16,8 +16,6 @@ export const carsApi = baseApi.injectEndpoints({
                 }
             }),
             transformResponse: (response) => {
-                console.log("Full response:", response);
-
                 return {
                     cars: response.content,
                     meta: {
@@ -43,15 +41,6 @@ export const carsApi = baseApi.injectEndpoints({
                     size,
                     query,
                 };
-
-                // Log the request
-                console.log("Request to get available cars:", {
-                    url: '/available',
-                    method: 'POST',
-                    body: requestBody,
-                    params,
-                });
-
                 return {
                     url: `${CAR_URL}/available`,
                     method: 'POST',
@@ -60,9 +49,6 @@ export const carsApi = baseApi.injectEndpoints({
                 };
             },
             transformResponse: (response) => {
-                // Log the full response
-                console.log("Full response from API:", response);
-
                 return {
                     cars: response.content,
                     meta: {
@@ -81,9 +67,6 @@ export const carsApi = baseApi.injectEndpoints({
                 method: 'GET',
             }),
             transformResponse: (response) => {
-                // Log the full response
-                console.log("Full response from API:", response);
-
                 return response; // Return the CarViewModel directly
             },
             providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
@@ -95,13 +78,6 @@ export const carsApi = baseApi.injectEndpoints({
                     endDate: selectedToDate,
                     username: username,
                 };
-
-                // Log the request details
-                console.log("Requesting car availability with details:", {
-                    carId,
-                    requestBody,
-                });
-
                 return {
                     url: `${CAR_URL}/check/${carId}`,
                     method: 'POST',
@@ -109,22 +85,12 @@ export const carsApi = baseApi.injectEndpoints({
                 };
             },
             transformResponse: (response) => {
-                // Log the full response
-                console.log("Full response from API /check/{id}:", response);
-
                 return response; // Return the CarViewModel directly
             },
             providesTags: (result, error, id) => [{type: tagTypes.cars, id}],
         }),
         createReserve: builder.mutation({
             query: ({carId, data}) => {
-
-                // Log the request details
-                console.log("Creating reservation with details:", {
-                    carId,
-                    data,
-                });
-
                 return {
                     url: `${CAR_URL}/reserve/${carId}`,
                     method: 'POST',
@@ -135,10 +101,8 @@ export const carsApi = baseApi.injectEndpoints({
                 try {
                     const response = await queryFulfilled;
                     // Log the successful response
-                    console.log("Reservation created successfully:", response.data);
                 } catch (error) {
                     // Log any error that occurs
-                    console.error("Failed to create reservation:", error);
                 }
             },
             invalidatesTags: [tagTypes.cars],

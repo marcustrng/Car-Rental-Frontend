@@ -17,8 +17,6 @@ export const appointmentApi = baseApi.injectEndpoints({
             }),
             transformResponse: (response) => {
                 // Log the full response
-                console.log("Full response from API:", response);
-
                 return {
                     rents: response.content,
                     meta: {

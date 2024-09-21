@@ -25,7 +25,6 @@ const Reverses = () => {
     let username = getFromLocalStorage('username');
     const {data: rentData, isError, isLoading} = useGetAllRentByUserQuery(username);
     const rents = rentData?.rents;
-    console.log("useGetAllRentByUserQuery rents", rents);
 
     const [updateAppointment, {isError: updateIsError, isSuccess, error}] = useUpdateAppointmentMutation();
     const updatedApppointmentStatus = (id, type) => {
