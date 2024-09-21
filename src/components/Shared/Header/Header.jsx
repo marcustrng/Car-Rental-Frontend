@@ -67,7 +67,7 @@ const Header = () => {
                     <HeaderNav isLoggedIn={isLoggedIn} data={data}
                                avatar={avatar} content={content} open={open} setOpen={setOpen}/>
                     <Link to={'/appointment'} className="appointment-btn scrollto">
-                        <span className="d-none d-md-inline">Make a</span> Reserve
+                        <span className="d-none d-md-inline">Make a Booking</span>
                     </Link>
                 </div>
             </header>

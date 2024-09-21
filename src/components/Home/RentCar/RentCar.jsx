@@ -17,20 +17,6 @@ import {useGetCarsQuery} from "../../../redux/api/carApi";
 const RentCar = () => {
 	const { data, isError, isLoading } = useGetCarsQuery({ limit: 10 });
 	const cars = data?.cars;
-	const [addFavourite, { isSuccess, isLoading: FIsLoading, isError: fIsError, error }] = useAddFavouriteMutation();
-
-	const handleAddFavourite = (id) => {
-		addFavourite({ doctorId: id });
-	};
-
-	useEffect(() => {
-		if (!FIsLoading && fIsError) {
-			message.error(error?.data?.message)
-		}
-		if (isSuccess) {
-			message.success('Successfully Favourite Adde')
-		}
-	}, [isSuccess, fIsError, FIsLoading, error?.data?.message])
 
 	// what to render 
 	let content = null;
@@ -46,9 +32,6 @@ const RentCar = () => {
 								<Link to={`/cars/profile/${item?.id}`}>
 									{item?.imageUrl && <img className="img-fluid" alt="" src={item?.imageUrl} />}
 								</Link>
-								<a style={{ cursor: 'pointer' }} className="position-absolute top-0 end-0 me-2" onClick={() => handleAddFavourite(item?.id)}>
-									<FaRegHeart />
-								</a>
 							</div>
 							<div className="pro-content">
 								<h3 className="title">
