@@ -4,9 +4,9 @@ export const contactApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         contact: build.mutation({
             query: (data) => ({
-                url: `/contact`,
+                url: `/contract`,
                 method: 'POST',
-                data: data,
+                body: data,
             })
         }),
 
