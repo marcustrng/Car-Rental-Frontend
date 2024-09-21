@@ -57,26 +57,8 @@ const RentCar = () => {
 									</Link>
 									<FaCheckCircle className='verified' />
 								</h3>
-								<p className="speciality">{item?.description}</p>
-								<div className="w-100 d-flex align-items-center">
-									<StarRatings
-										rating={5}
-										starRatedColor="#f4c150"
-										numberOfStars={5}
-										name='rating'
-										className="star"
-										starDimension="20px"
-										starSpacing="5px"
-									/>
-									<span className="d-inline-block text-secondary mt-2">(27)</span>
-								</div>
+								<p className="speciality" style={{"height":"150px"}}>{item?.description}</p>
 								<ul className="available-info">
-									<li>
-										<FaLocationArrow className='icon' /> Georgia, USA
-									</li>
-									<li>
-										<FaClock className='icon' /> Available on Fri, 22 Mar
-									</li>
 									<li>
 										<FaDollarSign className='icon' /> {item?.pricePerDay}
 									</li>
@@ -119,21 +101,20 @@ const RentCar = () => {
 						</div>
 					</div>
 					<div className="col-12 col-md-9 col-lg-9">
-						<div
-								className="d-flex justify-content-center align-items-center gap-3 border-0">
+						<div className="d-flex justify-content-center align-items-center gap-3 border-0">
 							<Swiper
-									spaceBetween={10}
-									slidesPerView={1}
-									modules={[Navigation, Autoplay]}
-									navigation={true}
-									loop={true}
-									centeredSlides={true}
-									autoplay={{delay: 5000, disableOnInteraction: false}}
-									breakpoints={{
-										640: {slidesPerView: 2},
-										768: {slidesPerView: 2},
-										1024: {slidesPerView: 3},
-									}}
+								spaceBetween={10}
+								slidesPerView={1}
+								modules={[Navigation, Autoplay]}
+								navigation={true}
+								loop={true}
+								centeredSlides={true}
+								autoplay={{delay: 5000, disableOnInteraction: false}}
+								breakpoints={{
+									640: {slidesPerView: 2},
+									768: {slidesPerView: 2},
+									1024: {slidesPerView: 3},
+								}}
 							>
 								{content}
 							</Swiper>
