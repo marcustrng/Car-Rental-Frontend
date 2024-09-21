@@ -9,22 +9,24 @@ import {Empty} from 'antd';
 import {useGetCarsQuery} from "../../redux/api/carApi";
 
 const About = () => {
-    const { data: carData, isLoading: DoctorIsLoading, isError: doctorIsError } = useGetCarsQuery({ limit: 4 });
+    const {data: carData, isLoading: isLoading, isError: isError} = useGetCarsQuery({size: 4});
 
     const cars = carData?.cars;
 
-    let doctorContent = null;
-    if (!DoctorIsLoading && doctorIsError) doctorContent = <div>Something Went Wrong !</div>
-    if (!DoctorIsLoading && !doctorIsError && cars?.length === 0) doctorContent = <div><Empty /></div>
-    if (!DoctorIsLoading && !doctorIsError && cars?.length > 0) doctorContent =
+    let aboutContent = null;
+    if (!isLoading && isError) aboutContent = <div>Something Went Wrong !</div>
+    if (!isLoading && !isError && cars?.length === 0) aboutContent = <div><Empty/></div>
+    if (!isLoading && !isError && cars?.length > 0) aboutContent =
         <>
             {cars && cars.map((item, id) => (
                 <div className="col-lg-3 col-md-6 col-sm-6" key={id + item.id}>
                     <div className="card shadow border-0 mb-5 mb-lg-0">
-                        {item.imageUrl && <img src={item.imageUrl} class="img-fluid w-100" alt="" />}
+                        {item.imageUrl &&
+                            <img src={item.imageUrl} class="img-fluid w-100" alt="" style={{height: '180px'}}/>}
                         <div className="p-2">
-                            <h4 className="mt-4 mb-0" style={{ color: '#223a66' }}><a>{item?.brand + ' ' + item?.model}</a></h4>
-                            <p>{item?.description}</p>
+                            <h4 className="mt-4 mb-0" style={{color: '#223a66'}}>
+                                <a>{item?.brand + ' ' + item?.model}</a></h4>
+                            <p style={{height: '200px'}}>{item?.description}</p>
                         </div>
                     </div>
                 </div>
@@ -33,12 +35,12 @@ const About = () => {
 
     return (
         <>
-            <Header />
+            <Header/>
             <SubHeader
                 title="About Us"
                 subtitle="Learn more about our mission, values, and the dedicated team behind our exceptional car rental services."
             />
-            <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
+            <div className="container" style={{marginBottom: 100, marginTop: 100}}>
                 <div className="row p-5">
                     <div className="col-lg-4">
                         <div className='section-title text-center'>
@@ -61,28 +63,29 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
+            <div className="container" style={{marginBottom: 100, marginTop: 100}}>
                 <div className="row justify-content-center">
                     <div className="col-lg-6">
                         <div className='mb-4 section-title text-center'>
                             <h2 className='text-uppercase'>Meet Our Specialist</h2>
-                            <p className='form-text m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, ipsum!</p>
+                            <p className='form-text m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut,
+                                ipsum!</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="row">
-                    {doctorContent}
-
+                    {aboutContent}
                 </div>
             </div>
 
-            <div className="container say-about" style={{ marginBottom: 100, marginTop: 100 }}>
+            <div className="container say-about" style={{marginBottom: 100, marginTop: 100}}>
                 <div className="row">
                     <div className="col-lg-6 offset-lg-6">
                         <div className='mb-4 section-title text-center'>
                             <h2 className='text-uppercase'>What Customer's Say</h2>
-                            <p className='form-text m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, ipsum!</p>
+                            <p className='form-text m-0'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut,
+                                ipsum!</p>
                         </div>
                     </div>
                 </div>
@@ -90,16 +93,18 @@ const About = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6 offset-lg-6">
                         <div className="my-2">
-                            <h4 style={{ color: '#223a66' }} className='my-0'>Amazing service!</h4>
+                            <h4 style={{color: '#223a66'}} className='my-0'>Amazing service!</h4>
                             <span>John Partho</span>
                         </div>
                         <p className='form-text'>
-                            They provide great service facilty consectetur adipisicing elit. Itaque rem, praesentium, iure, ipsum magnam deleniti a vel eos adipisci suscipit fugit placeat. Quibusdam laboriosam eveniet nostrum nemo commodi numquam quod.
+                            They provide great service facilty consectetur adipisicing elit. Itaque rem, praesentium,
+                            iure, ipsum magnam deleniti a vel eos adipisci suscipit fugit placeat. Quibusdam laboriosam
+                            eveniet nostrum nemo commodi numquam quod.
                         </p>
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </>
     )
 }
